@@ -1,19 +1,38 @@
+// src/hooks/userAuth.ts
+
 import { useState } from "react";
-import { signupUser } from "../services/authService"; // API call for signing up
+import { signupUser, loginUser } from "../services/authService"; // API calls for signup and login
 
 const useAuth = () => {
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);  // For storing errors during login and signup
 
+  // Signup function
   const signup = async (username: string, password: string, instrument: string, role: "player" | "admin" = "player") => {
     try {
-      await signupUser(username, password, instrument, role);  // Call API to register the user
-      setError(null); // Reset error on success
+      await signupUser(username, password, instrument, role);  // Call the API to register the user
+      setError(null);  // Reset error on success
     } catch (err) {
       setError("Signup failed. Please try again.");
     }
   };
 
-  return { error, signup };
+  // Login function
+  const login = async (username: string, password: string) => {
+    try {
+      const { token, role } = await loginUser(username, password);  // Call the API to log in the user
+
+      // Store the token in localStorage for future authenticated requests
+      localStorage.setItem("token", token);
+
+      return { role };  // Return role to decide navigation
+    } catch (err) {
+      // Handle errors from the backend (e.g., invalid username/password)
+      setError("Invalid username or password");
+      throw new Error("Invalid credentials");
+    }
+  };
+
+  return { error, signup, login };
 };
 
 export default useAuth;

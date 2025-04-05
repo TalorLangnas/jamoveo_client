@@ -1,13 +1,16 @@
+// src/components/Button.tsx
+
 import React from "react";
 
 interface ButtonProps {
   type: "submit" | "button";
   label: string;
+  onClick?: () => void; // Add onClick as an optional prop
 }
 
-const Button: React.FC<ButtonProps> = ({ type, label }) => {
+const Button: React.FC<ButtonProps> = ({ type, label, onClick }) => {
   return (
-    <button type={type} className="button">
+    <button type={type} className="button" onClick={onClick}>
       {label}
     </button>
   );
