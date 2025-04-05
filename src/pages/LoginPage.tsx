@@ -27,12 +27,12 @@ const LoginPage = () => {
 
     try {
       const { role } = await login(username, password);  // Call login function from useAuth
-        console.log(role);  // Log the role for debugging
+
       // Navigate based on the role returned from backend
       if (role === "admin") {
         navigate("/admin");  // Navigate to Admin page
       } else if (role === "player") {
-        navigate("/waiting");  // Navigate to Waiting page
+        navigate("/waiting");  // Navigate to Waiting page for the player
       }
     } catch (err) {
       setFormError("Invalid username or password.");
@@ -47,8 +47,12 @@ const LoginPage = () => {
   return (
     <div className="login-page">
       <h2>Login</h2>
-      {error && formError && <div className="error">{formError}</div>}
-      
+
+      {/* Display the error message from the login hook if it exists */}
+      {error && <div className="error">{error}</div>}  
+
+      {formError && <div className="error">{formError}</div>}
+
       <form onSubmit={handleSubmit}>
         <InputField
           type="text"

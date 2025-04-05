@@ -3,8 +3,9 @@ export const validateForm = (username: string, password: string, instrument: str
     return username.trim() !== "" && password.trim() !== "" && instrument.trim() !== "";
   };
 
-// Validation function for the login form
+// New validation function for the login form
 export const validateLoginForm = (username: string, password: string): boolean => {
   return username.trim() !== "" && password.trim() !== "";
 };
+
   

@@ -1,4 +1,4 @@
-// src/hooks/userAuth.ts
+// src/hooks/useAuth.ts
 
 import { useState } from "react";
 import { signupUser, loginUser } from "../services/authService"; // API calls for signup and login
@@ -18,15 +18,18 @@ const useAuth = () => {
 
   // Login function
   const login = async (username: string, password: string) => {
+    console.log("Login function called with:", username, password);  // Log the login attempt
+
     try {
       const { token, role } = await loginUser(username, password);  // Call the API to log in the user
 
       // Store the token in localStorage for future authenticated requests
       localStorage.setItem("token", token);
 
-      return { role };  // Return role to decide navigation
+      return { token, role };  // Return token and role for navigation
     } catch (err) {
       // Handle errors from the backend (e.g., invalid username/password)
+      console.error("Login error:", err);
       setError("Invalid username or password");
       throw new Error("Invalid credentials");
     }

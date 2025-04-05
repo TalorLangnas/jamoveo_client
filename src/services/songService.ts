@@ -16,6 +16,7 @@ export const createSessionAPI = async (token: string) => {
         },
       }
     );
+    console.log("Response from createSessionAPI:", response);  // Debugging log
     return response;  // Return the full response to be handled in the component
   } catch (error) {
     throw new Error("Error occurred while creating session.");

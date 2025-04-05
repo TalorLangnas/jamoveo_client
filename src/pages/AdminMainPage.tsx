@@ -1,6 +1,4 @@
-// src/pages/AdminMainPage.tsx
-
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";  // For routing
 import useAdminSearch from "../hooks/useAdminSearch";  // Custom hook for admin song search logic
 import InputField from "../components/InputField";  // Reusable input component
@@ -11,11 +9,17 @@ const AdminMainPage = () => {
   const [query, setQuery] = useState("");
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  const { error: searchError, sessionUrl, createSession, searchSong } = useAdminSearch();  // Use the custom hook
+  const { error: searchError, sessionUrl, createSession, searchSong } = useAdminSearch();
+  
+  // Ref to track if session creation has been called
+  const sessionCreatedRef = useRef(false);
 
   // Use effect to create a session when the admin navigates to the page
   useEffect(() => {
-    createSession();  // Call the function when the component is mounted
+    if (!sessionCreatedRef.current) {
+      createSession();  // Call the function when the component is mounted
+      sessionCreatedRef.current = true;  // Mark that session creation has happened
+    }
   }, []);  // Empty dependency array ensures this runs only once when the component is mounted
 
   const handleSubmit = async (e: React.FormEvent) => {

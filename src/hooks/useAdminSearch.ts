@@ -21,6 +21,7 @@ const useAdminSearch = () => {
       const response = await createSessionAPI(token);
 
       if (response.status === 201) {
+        console.log("Session created successfully:", response.data);  // Debugging log
         setSessionUrl(response.data.sessionUrl);  // Set the session URL if successful
       } else {
         throw new Error("Failed to create session.");

@@ -1,9 +1,10 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
+import AdminMainPage from "./pages/AdminMainPage";  // Admin Main Page
+import AdminResultsPage from "./pages/AdminResultsPage";  // Admin Results Page
+import LoginPage from "./pages/LoginPage";  // Login Page
+import PlayerMainPage from "./pages/PlayerMainPage";  // Player Main Page
+import SignupPage from "./pages/SignupPage";  // Signup Page
 import WaitingPage from "./pages/WaitingPage";
-import SignupPage from "./pages/SignupPage";
-import AdminMainPage from "./pages/AdminMainPage";
-import AdminResultsPage from "./pages/AdminResultsPage";
 
 const App = () => {
   return (
@@ -11,10 +12,11 @@ const App = () => {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/waiting" element={<WaitingPage />} />
-        <Route path="/signup" element={<SignupPage />} />
         <Route path="/admin" element={<AdminMainPage />} />
         <Route path="/admin/results" element={<AdminResultsPage />} />
+        <Route path="/player" element={<PlayerMainPage />} />  {/* Player main page */}
+        <Route path="/signup" element={<SignupPage />} />  {/* Signup page */}
+        <Route path="/waiting" element={<WaitingPage />} />
       </Routes>
     </Router>
   );
