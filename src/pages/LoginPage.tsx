@@ -1,6 +1,5 @@
 // src/pages/LoginPage.tsx
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";  // For routing
 import useAuth from "../hooks/useAuth";  // Custom hook for auth logic
 import InputField from "../components/InputField";  // Reusable input component
@@ -15,10 +14,20 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [formError, setFormError] = useState<string | null>(null);  // For displaying form errors
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const userRole = localStorage.getItem("role");
+    
+    if (token && userRole === "admin") {
+      navigate("/admin");  // Redirect to admin page if logged in as admin
+    } else if (token && userRole === "player") {
+      navigate("/waiting");  // Redirect to waiting page if logged in as player
+    }
+  }, [navigate]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validate the form inputs using the new login validation function
     const isValid = validateLoginForm(username, password);
     if (!isValid) {
       setFormError("Please enter both username and password.");
@@ -28,29 +37,21 @@ const LoginPage = () => {
     try {
       const { role } = await login(username, password);  // Call login function from useAuth
 
-      // Navigate based on the role returned from backend
       if (role === "admin") {
         navigate("/admin");  // Navigate to Admin page
       } else if (role === "player") {
-        navigate("/waiting");  // Navigate to Waiting page for the player
+        navigate("/waiting");  // Navigate to Waiting page
       }
     } catch (err) {
       setFormError("Invalid username or password.");
     }
   };
 
-  // Navigate to Signup Page
-  const goToSignup = () => {
-    navigate("/signup");
-  };
-
   return (
     <div className="login-page">
       <h2>Login</h2>
 
-      {/* Display the error message from the login hook if it exists */}
-      {error && <div className="error">{error}</div>}  
-
+      {error && <div className="error">{error}</div>}
       {formError && <div className="error">{formError}</div>}
 
       <form onSubmit={handleSubmit}>
@@ -68,11 +69,6 @@ const LoginPage = () => {
         />
         <Button type="submit" label="Log In" />
       </form>
-      
-      {/* Sign Up Button */}
-      <div className="signup-button">
-        <Button type="button" label="Go to Signup" onClick={goToSignup} />
-      </div>
     </div>
   );
 };

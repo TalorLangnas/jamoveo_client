@@ -18,8 +18,6 @@ const useAuth = () => {
 
   // Login function
   const login = async (username: string, password: string) => {
-    console.log("Login function called with:", username, password);  // Log the login attempt
-
     try {
       const { token, role } = await loginUser(username, password);  // Call the API to log in the user
 

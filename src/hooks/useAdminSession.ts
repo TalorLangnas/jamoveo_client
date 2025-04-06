@@ -1,9 +1,10 @@
 // src/hooks/useAdminSearch.ts
 
 import { useState } from "react";
-import { createSessionAPI, searchSongAPI } from "../services/songService";  // Import services
+import { searchSongAPI } from "../services/songService";  // Import services
+import { createSessionAPI } from "../services/sessionService";  // Import the session creation API
 
-const useAdminSearch = () => {
+const useAdminSession = () => {
   const [error, setError] = useState<string | null>(null);
   const [sessionUrl, setSessionUrl] = useState<string | null>(null);  // For storing the session URL
 
@@ -23,6 +24,7 @@ const useAdminSearch = () => {
       if (response.status === 201) {
         console.log("Session created successfully:", response.data);  // Debugging log
         setSessionUrl(response.data.sessionUrl);  // Set the session URL if successful
+        localStorage.setItem("sessionId", response.data._id);  // Save session ID in localStorage
       } else {
         throw new Error("Failed to create session.");
       }
@@ -45,4 +47,4 @@ const useAdminSearch = () => {
   return { error, sessionUrl, createSession, searchSong };
 };
 
-export default useAdminSearch;
+export default useAdminSession;

@@ -8,7 +8,6 @@ const API_URL = "http://localhost:5000";  // Update with your actual backend URL
 export const loginUser = async (username: string, password: string) => {
   try {
     const response = await axios.post(`${API_URL}/api/auth/login`, { username, password });
-    console.log("Login response:", response.data);  // Log the response for debugging
     // Return token and role if login is successful
     const { token, role } = response.data;
     return { token, role };
