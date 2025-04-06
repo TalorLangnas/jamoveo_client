@@ -14,7 +14,7 @@ const usePlayerSession = () => {
       const response = await joinSessionAPI(sessionUrl, token);
       console.log("Response from joinSessionAPI:", response);  // Debugging log
       if (response.status === 200) {
-        // Successful login and session join
+        localStorage.setItem("sessionId", response.data.session._id);  
         return response.data;  // Return the response with the session and user info
       } else {
         setError("Failed to join the session. Please try again.");

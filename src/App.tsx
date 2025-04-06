@@ -9,6 +9,8 @@ import SignupPage from "./pages/SignupPage";  // Signup Page
 import WaitingPage from "./pages/WaitingPage";  // Waiting page
 import PublicRoute from "./components/routes/PublicRoute";  
 import ProtectedRoute from "./components/routes/ProtectedRoute";
+import WaitingPageGuard from "./components/routes/WaitingPageGuard";
+import PlayerMainPageGuard from "./components/routes/PlayerMainPageGuard";
 
 const App = () => {
   return (
@@ -46,9 +48,19 @@ const App = () => {
         <Route
           path="/waiting"
           element={
-            <ProtectedRoute allowedRoles={['player']}>
+            <WaitingPageGuard>
               <WaitingPage />
-            </ProtectedRoute>
+            </WaitingPageGuard>
+          }
+        />
+
+        {/* Protected routes for player */}
+        <Route
+          path="/player"
+          element={
+            <PlayerMainPageGuard>
+              <PlayerMainPage />
+            </PlayerMainPageGuard>
           }
         />
 

@@ -9,6 +9,10 @@ interface ProtectedRouteProps {
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, children }) => {
   const token = localStorage.getItem('token');
   const role = localStorage.getItem('role');
+  const sessionId = localStorage.getItem('sessionId');
+  console.log('ProtectedRoute: token:', token); // Debugging log
+  console.log('role:', role); // Debugging log
+  console.log('sessionId:', sessionId); // Debugging log
 
   // If there is no token, the user is not logged in.
   if (!token || !role) {
@@ -19,8 +23,10 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, children 
   if (!allowedRoles.includes(role)) {
     if (role === 'admin') {
       return <Navigate to="/admin" />;
-    } else if (role === 'player') {
+    } else if (role === 'player' && sessionId === '0') {
       return <Navigate to="/waiting" />;
+    } else if (role === 'player' && sessionId !== '0') {
+      return <Navigate to="/player" />; // Redirect to game page if sessionId is not '0'
     } else {
       return <Navigate to="/login" />;
     }

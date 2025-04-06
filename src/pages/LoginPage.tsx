@@ -47,6 +47,7 @@ const LoginPage = () => {
     }
   };
 
+
   return (
     <div className="login-page">
       <h2>Login</h2>
@@ -67,8 +68,13 @@ const LoginPage = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button type="submit" label="Log In" />
+        <Button type="submit" label="Log In"/>
       </form>
+      {/* Add a Sign Up button for navigation */}
+      <div className="signup-redirect">
+        <p>Don't have an account?</p>
+        <Button type="button" label="Sign Up" onClick={() => navigate("/signup")} />
+      </div>
     </div>
   );
 };

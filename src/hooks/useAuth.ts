@@ -24,6 +24,7 @@ const useAuth = () => {
       // Store the token in localStorage for future authenticated requests
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
+      localStorage.setItem("sessionId", "0");
 
       return { token, role };  // Return token and role for navigation
     } catch (err) {
