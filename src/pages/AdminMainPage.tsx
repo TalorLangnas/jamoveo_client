@@ -1,8 +1,10 @@
+// src/pages/AdminMainPage.tsx
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";  // For routing
 import useAdminSearch from "../hooks/useAdminSearch";  // Custom hook for admin song search logic
 import InputField from "../components/InputField";  // Reusable input component
 import Button from "../components/Button";  // Reusable button component
+import useSession from "../hooks/useSession";  // Import the new session hook
 import "../assets/styles/components/App.css";  // Importing the CSS for styling
 
 const AdminMainPage = () => {
@@ -10,17 +12,16 @@ const AdminMainPage = () => {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const { error: searchError, sessionUrl, createSession, searchSong } = useAdminSearch();
-  
-  // Ref to track if session creation has been called
+  const { error: sessionError, logout } = useSession();  // Using logout from useSession
+
   const sessionCreatedRef = useRef(false);
 
-  // Use effect to create a session when the admin navigates to the page
   useEffect(() => {
     if (!sessionCreatedRef.current) {
-      createSession();  // Call the function when the component is mounted
-      sessionCreatedRef.current = true;  // Mark that session creation has happened
+      createSession();
+      sessionCreatedRef.current = true;
     }
-  }, []);  // Empty dependency array ensures this runs only once when the component is mounted
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,8 +31,8 @@ const AdminMainPage = () => {
     }
 
     try {
-      await searchSong(query);  // Call the search function from the hook
-      navigate("/admin/results");  // Redirect to the results page (not yet implemented)
+      await searchSong(query);
+      navigate("/admin/results");
     } catch (err) {
       setError("Error occurred while searching for the song. Please try again.");
     }
@@ -39,14 +40,24 @@ const AdminMainPage = () => {
 
   const handleCopyClick = () => {
     if (sessionUrl) {
-      // Create a temporary input element to copy the URL
       const tempInput = document.createElement("input");
       tempInput.value = sessionUrl;
       document.body.appendChild(tempInput);
       tempInput.select();
       document.execCommand("copy");
-      document.body.removeChild(tempInput);  // Clean up
+      document.body.removeChild(tempInput);
       alert("Session URL copied to clipboard!");
+    }
+  };
+
+  const handleLogout = async () => {
+    const success = await logout();  // Call the logout function from the hook
+
+    if (success) {
+      localStorage.clear();  
+      navigate("/login");  // Redirect to login page
+    } else {
+      alert("Logout failed. Please try again.");
     }
   };
 
@@ -54,7 +65,7 @@ const AdminMainPage = () => {
     <div className="admin-main-page">
       <h2>Search any song...</h2>
       {error && <div className="error">{error}</div>}
-      {searchError && <div className="error">{searchError}</div>}  {/* Display session creation errors */}
+      {searchError && <div className="error">{searchError}</div>}
       
       <form onSubmit={handleSubmit}>
         <InputField
@@ -66,7 +77,6 @@ const AdminMainPage = () => {
         <Button type="submit" label="Search" />
       </form>
 
-      {/* Display session URL if created successfully */}
       {sessionUrl && (
         <div>
           <p>Session created successfully! Here is your session URL:</p>
@@ -76,6 +86,8 @@ const AdminMainPage = () => {
           </div>
         </div>
       )}
+
+      <Button type="button" label="Logout" onClick={handleLogout} />  {/* Logout button */}
     </div>
   );
 };

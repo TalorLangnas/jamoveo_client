@@ -7,24 +7,39 @@ const API_URL = "http://localhost:5000";  // Replace with your actual backend UR
 // Function to join a session
 export const joinSessionAPI = async (sessionUrl: string, token: string) => {
   try {
-    console.log("sessionUrl", sessionUrl);  // Debugging log
-    const reqBody = { sessionUrl };  // Request body with session URL
-    console.log("reqBody", reqBody);  // Debugging log
-    const reqHeader = { Authorization: `Bearer ${token}` };  // Request header with JWT token
-    console.log("reqHeader", reqHeader);  // Debugging log
+    const reqBody = { sessionUrl };  
+    const reqHeader = { Authorization: `Bearer ${token}` };  
     
     // Send request to the server (use sessionUrl directly)
     const response = await axios.post(
-      sessionUrl + "/join",  // Corrected: append only "/join" to the session URL
-      reqBody,  // Body with session URL
+      sessionUrl + "/join",  
+      reqBody,  
       {
-        headers: reqHeader,  // Send the JWT token in the Authorization header
+        headers: reqHeader,  
       }
     );
-    console.log("Response from joinSessionAPI:", response);  // Debugging log
-    return response;  // Return the full response to be handled in the component
+
+    return response;  
   } catch (error) {
-    console.error("Error during session join:", error);  // Log the error for debugging
     throw new Error("Error occurred while joining the session.");
+  }
+};
+
+// Function to disconnect the user from the session
+export const logoutSessionAPI = async (sessionId: string, token: string) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}/api/session/${sessionId}/disconnect`,
+      { sessionId },  // Body with session ID
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,  // Send JWT token in Authorization header
+        },
+      }
+    );
+    console.log("Response from logoutSessionAPI:", response);  // Debugging log
+    return response;  // Return the response to be handled in the hook
+  } catch (error) {
+    throw new Error("Error occurred while disconnecting from the session.");
   }
 };
