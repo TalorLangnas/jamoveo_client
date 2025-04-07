@@ -11,6 +11,7 @@ import PublicRoute from "./components/routes/PublicRoute";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import WaitingPageGuard from "./components/routes/WaitingPageGuard";
 import PlayerMainPageGuard from "./components/routes/PlayerMainPageGuard";
+// import LivePage from "./pages/LivePage";
 
 const App = () => {
   return (
@@ -33,13 +34,21 @@ const App = () => {
             </PublicRoute>
           }
         />
-
+    
         {/* Protected Routes */}
         <Route
           path="/admin"
           element={
             <ProtectedRoute allowedRoles={['admin']}>
               <AdminMainPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/results"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <AdminResultsPage searchResults={[]} onSelect={(song) => console.log(song)} />
             </ProtectedRoute>
           }
         />

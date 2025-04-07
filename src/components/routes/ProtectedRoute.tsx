@@ -10,9 +10,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, children 
   const token = localStorage.getItem('token');
   const role = localStorage.getItem('role');
   const sessionId = localStorage.getItem('sessionId');
-  console.log('ProtectedRoute: token:', token); // Debugging log
-  console.log('role:', role); // Debugging log
-  console.log('sessionId:', sessionId); // Debugging log
 
   // If there is no token, the user is not logged in.
   if (!token || !role) {
