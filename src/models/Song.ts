@@ -1,6 +1,7 @@
 interface Song {
-    title: string;
-    author: string;
+    _id: string;
+    name: string;
+    artist: string;
     image?: string;
     // add other properties as necessary
   }

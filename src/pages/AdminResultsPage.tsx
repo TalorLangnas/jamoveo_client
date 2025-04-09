@@ -1,92 +1,49 @@
-// // src/pages/AdminResultsPage.tsx
-
-// import React, { useEffect } from 'react';
-// import { useLocation, useNavigate } from 'react-router-dom';
-// import SongCard from '../components/SongCard';
-
-// // Define a type for the location state
-// // interface LocationState {
-// //   searchResults: SongCard[];
-// // }
-
-// // write hardcoded SongCard for testing
-// const songCardData = [
-//   {
-//     name: "Song Title 1",
-//     artist: "Artist 1",
-//     imageUrl: "https://via.placeholder.com/150"
-//   },
-//   {
-//     name: "Song Title 2",
-//     artist: "Artist 2",
-//     imageUrl: "https://via.placeholder.com/150"
-//   },
-//   {
-//     name: "Song Title 3",
-//     artist: "Artist 3",
-//     imageUrl: "https://via.placeholder.com/150"
-//   }
-// ];
-
-// const AdminResultsPage: React.FC = () => {
-//   return (
-//     <div>
-//       <SongCard title="Hello, TypeScript!" />
-//     </div>
-//   );
-// };
-
-// export default AdminResultsPage;
-
+// src/pages/AdminResultsPage.tsx
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import useAdminSession from "../hooks/useAdminSession";  
+import useAdminSession from "../hooks/useAdminSession";
+import Song from '../models/Song';  // Import the Song type
+import SongCard from '../components/SongCard';  // Import the SongCard component
 
-export interface Song {
-  title: string;
-  author: string;
-  image?: string;
-}
-
-
-
-// const AdminResultPage: React.FC<AdminResultPageProps> = ({ searchResults, onSelect }) => {
 const AdminResultPage = () => {
+  const [foundSongs, setFoundSongs] = useState<Song[]>([]);
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("location:", location); // Debugging log
+
+  // Assume the search results are passed as an array of song IDs in location.state.searchResults
+  const searchResultsArr = (location.state && (location.state as any).searchResults) as string[] | undefined;
+  console.log('searchResultsArr:', searchResultsArr);
+
   const { songDetails } = useAdminSession();
-  // Retrieve the state passed via navigate
-  const state = location.state as string | undefined;
-  const searchResultsArr = location.state.searchResults as string[] | undefined;
-  console.log('searchResultsArr:', searchResultsArr); // Debugging log
 
   useEffect(() => {
-    if (!searchResultsArr) {
-      // If no state is found, redirect to the main page or handle accordingly
+    if (!searchResultsArr || searchResultsArr.length === 0) {
+      // No valid song IDs – redirect to admin page.
       navigate("/admin");
     } else {
-      // Define an immediately invoked async function expression (IIFE)
       (async () => {
         try {
-          const foundSong = await songDetails(searchResultsArr); // Assuming you want to fetch details for the first song in the array
-          console.log("foundSong:", foundSong);  // Debugging log
+          // songDetails accepts an array of song IDs and returns an array of song objects.
+          const songs: Song[] = await songDetails(searchResultsArr);
+          console.log("foundSongs:", songs);
+          setFoundSongs(songs);
         } catch (err) {
-          console.error("Error occurred while searching for the song. Please try again.", err);
+          console.error("Error occurred while searching for the songs. Please try again.", err);
         }
       })();
     }
-  }, [state, navigate, songDetails]);
-
-
-
+    // Empty dependency array ensures this runs only once on mount.
+  }, []); 
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
       <div className="max-w-4xl mx-auto px-4 py-8">
         <h1 className="text-4xl font-bold mb-6 text-center">Search Results</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          
+          {/* Map over the foundSongs array and render a SongCard for each song */}
+          {foundSongs.map((song) => (
+            <SongCard key={song._id || song.name} song={song} />
+          ))}
         </div>
       </div>
     </div>

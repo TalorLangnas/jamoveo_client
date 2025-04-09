@@ -54,28 +54,6 @@ const useAdminSession = () => {
     }
   };
 
-  // const songDetails = async (query: string) => {
-  //   try {
-  //     console.log("enter songDetails");  // Debugging log
-  //     console.log("songIds:", query);  // Debugging log
-  //     const response = await getSongById(query); 
-  //     console.log("response.status from the server:", response);  // Debugging log
-  //     if (response.status === 200) {
-  //       // setSong(response.data);
-  //       console.log("Song found:", response.data);  // Debugging log 
-  //       return response.data;  // Return the song data
-  //     } else {
-  //       // setSong(null); 
-  //       setError("No song found. Please try a different search.");
-  //     }
-  //   } catch (err) {
-  //     setError("Error occurred while searching for the song.");
-  //     throw err;  // Propagate error to be handled by the component
-  //   }
-  // };
-
-  // return { error, sessionUrl, song, createSession, searchSong };
-
   const songDetails = async (songIds: string[]): Promise<Song[]> => {
     try {
       console.log("enter songDetails");  // Debugging log

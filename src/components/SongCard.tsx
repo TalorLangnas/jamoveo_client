@@ -1,57 +1,31 @@
-import React from 'react';
+import React from "react";
+import Song from "../models/Song"; // Your Song type/interface
+import "../assets/styles/components/Card.css";
 
-interface SongCard {
-  name: string;
-  artist: string;
-  imageUrl?: string;
+interface SongCardProps {
+  song: Song;
 }
 
-const SongCard: React.FC<SongCard> = (props) => {
+const SongCard: React.FC<SongCardProps> = ({ song }) => {
+
+  const handleClick = () => {
+    console.log("click");
+  }
+
   return (
-    <div style={styles.card}>
-      {props.imageUrl ? (
-        <img src={props.imageUrl} alt={`${props.name} cover`} style={styles.image} />
-      ) : (
-        <div style={styles.placeholder}>No Image Available</div>
-      )}
-      <h3 style={styles.songName}>{props.name}</h3>
-      <p style={styles.artist}>{props.artist}</p>
+    <div className="card">
+      <div className="top">
+        <h2 className="name" onClick={handleClick}>{song.name}</h2>
+        {song.image && (
+          <img className="circle-img" src={song.image} alt={`${song.name} cover`} />
+        )}
+      </div>
+      <div className="bottom">
+        <p className="info">Artist: {song.artist}</p>
+        {/* You can add more details here. For example, if you have a phone number, email, or any other info */}
+      </div>
     </div>
   );
-};
-
-
-
-const styles: { [key: string]: React.CSSProperties } = {
-  card: {
-    border: '1px solid #ccc',
-    padding: '1rem',
-    borderRadius: '8px',
-    maxWidth: '300px',
-    textAlign: 'center'
-  },
-  image: {
-    width: '100%',
-    height: 'auto',
-    borderRadius: '8px'
-  },
-  placeholder: {
-    width: '100%',
-    height: '150px',
-    backgroundColor: '#eee',
-    borderRadius: '8px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: '#666'
-  },
-  songName: {
-    margin: '0.5rem 0'
-  },
-  artist: {
-    margin: 0,
-    color: '#555'
-  }
 };
 
 export default SongCard;
