@@ -1,5 +1,6 @@
 import React from "react";
 import Song from "../models/Song"; // Your Song type/interface
+import { useNavigate } from "react-router-dom";
 import "../assets/styles/components/Card.css";
 
 interface SongCardProps {
@@ -7,10 +8,13 @@ interface SongCardProps {
 }
 
 const SongCard: React.FC<SongCardProps> = ({ song }) => {
+  const navigate = useNavigate();
+
 
   const handleClick = () => {
-    console.log("click");
-  }
+    // Navigate to the "/live" page and pass the song ID via state
+    navigate("/live", { state: { songId: song._id } });
+  };
 
   return (
     <div className="card">

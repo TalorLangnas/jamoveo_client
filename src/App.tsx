@@ -11,6 +11,7 @@ import PublicRoute from "./components/routes/PublicRoute";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import WaitingPageGuard from "./components/routes/WaitingPageGuard";
 import PlayerMainPageGuard from "./components/routes/PlayerMainPageGuard";
+import LivePage from "./pages/LivePage";  // Live Page
 // import LivePage from "./pages/LivePage";
 
 const App = () => {
@@ -72,6 +73,14 @@ const App = () => {
               <PlayerMainPage />
             </PlayerMainPageGuard>
           }
+        />
+        <Route 
+        path="/live"
+        element={
+          <ProtectedRoute allowedRoles={['admin', 'player']}>
+           <LivePage />
+          </ProtectedRoute>
+        }
         />
 
         {/* Default route */}

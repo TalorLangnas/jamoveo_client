@@ -4,6 +4,7 @@ import { useState } from "react";
 import { searchSongAPI, getSongDetails, getSongById } from "../services/songService";  // Import services
 import { createSessionAPI } from "../services/sessionService";  // Import the session creation API
 import Song from "../models/Song";  // Import the Song model
+import { startSession } from "../services/socketIoService";  // Import the socket service
 
 const useAdminSession = () => {
   const [error, setError] = useState<string | null>(null);
@@ -25,6 +26,9 @@ const useAdminSession = () => {
       if (response.status === 201) {
         setSessionUrl(response.data.sessionUrl);  // Set the session URL if successful
         localStorage.setItem("sessionId", response.data._id);  // Save session ID in localStorage
+        console.log("response.data: ", response.data);  // Debugging log
+        startSession(response.data._id, response.data.admin);  // Create a room using the session ID
+        console.log("Session created successfully:", response.data);  // Debugging log
       } else {
         throw new Error("Failed to create session.");
       }
