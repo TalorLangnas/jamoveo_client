@@ -11,7 +11,8 @@ const AdminMainPage = () => {
   const [query, setQuery] = useState("");
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  const { error: searchError, sessionUrl, song, createSession, searchSong } = useAdminSession();
+  // const { error: searchError, sessionUrl, song, createSession, searchSong } = useAdminSession();
+  const { error: searchError, sessionUrl, createSession, searchSong } = useAdminSession();
   const { error: sessionError, logout } = useSession();  // Using logout from useSession
 
   const sessionCreatedRef = useRef(false);
@@ -31,9 +32,10 @@ const AdminMainPage = () => {
     }
 
     try {
-      const foundSong = await searchSong(query);
-      if (foundSong && foundSong._id){
-        navigate("/admin/results");
+      const foundSongId = await searchSong(query);
+      console.log("foundSongId:", foundSongId);  // Debugging log
+      if (foundSongId){
+        navigate("/admin/results", { state: { searchResults: [foundSongId] } });
       } else {
         setError("No song found. Please try a different search.");
       }

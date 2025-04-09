@@ -48,7 +48,8 @@ const App = () => {
           path="/admin/results"
           element={
             <ProtectedRoute allowedRoles={['admin']}>
-              <AdminResultsPage searchResults={[]} onSelect={(song) => console.log(song)} />
+               {/* <AdminResultsPage searchResults={[]} onSelect={(song) => console.log(song)} /> */}
+               <AdminResultsPage />
             </ProtectedRoute>
           }
         />

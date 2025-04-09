@@ -1,13 +1,14 @@
 // src/hooks/useAdminSearch.ts
 
 import { useState } from "react";
-import { searchSongAPI } from "../services/songService";  // Import services
+import { searchSongAPI, getSongDetails, getSongById } from "../services/songService";  // Import services
 import { createSessionAPI } from "../services/sessionService";  // Import the session creation API
+import Song from "../models/Song";  // Import the Song model
 
 const useAdminSession = () => {
   const [error, setError] = useState<string | null>(null);
   const [sessionUrl, setSessionUrl] = useState<string | null>(null);  // For storing the session URL
-  const [song, setSong] = useState<any | null>(null);  
+  // const [song, setSong] = useState<any | null>(null);  
 
   // Function to create a session
   const createSession = async () => {
@@ -40,11 +41,11 @@ const useAdminSession = () => {
       const response = await searchSongAPI(query); 
       console.log("response.status from the server:", response);  // Debugging log
       if (response.status === 200) {
-        setSong(response.data);
+        // setSong(response.data);
         console.log("Song found:", response.data);  // Debugging log 
         return response.data;  // Return the song data
       } else {
-        setSong(null); 
+        // setSong(null); 
         setError("No song found. Please try a different search.");
       }
     } catch (err) {
@@ -53,7 +54,47 @@ const useAdminSession = () => {
     }
   };
 
-  return { error, sessionUrl, song, createSession, searchSong };
+  // const songDetails = async (query: string) => {
+  //   try {
+  //     console.log("enter songDetails");  // Debugging log
+  //     console.log("songIds:", query);  // Debugging log
+  //     const response = await getSongById(query); 
+  //     console.log("response.status from the server:", response);  // Debugging log
+  //     if (response.status === 200) {
+  //       // setSong(response.data);
+  //       console.log("Song found:", response.data);  // Debugging log 
+  //       return response.data;  // Return the song data
+  //     } else {
+  //       // setSong(null); 
+  //       setError("No song found. Please try a different search.");
+  //     }
+  //   } catch (err) {
+  //     setError("Error occurred while searching for the song.");
+  //     throw err;  // Propagate error to be handled by the component
+  //   }
+  // };
+
+  // return { error, sessionUrl, song, createSession, searchSong };
+
+  const songDetails = async (songIds: string[]): Promise<Song[]> => {
+    try {
+      console.log("enter songDetails");  // Debugging log
+      console.log("songIds:", songIds);    // Debugging log
+  
+      // Fetch all songs concurrently using Promise.all
+      const songs = await Promise.all(
+        songIds.map(id => getSongById(id))
+      );
+      
+      console.log("Songs found:", songs);  // Debugging log
+      return songs;  // Return an array of song objects
+    } catch (err) {
+      setError("Error occurred while searching for the songs.");
+      throw err;  // Propagate the error to be handled by the component
+    }
+  };
+
+  return { error, sessionUrl, createSession, searchSong, songDetails };
 };
 
 export default useAdminSession;
