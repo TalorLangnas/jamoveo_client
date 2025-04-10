@@ -19,11 +19,12 @@ const useAuth = () => {
   // Login function
   const login = async (username: string, password: string) => {
     try {
-      const { token, role } = await loginUser(username, password);  // Call the API to log in the user
+      const { token, role, userId } = await loginUser(username, password);  // Call the API to log in the user
 
       // Store the token in localStorage for future authenticated requests
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
+      localStorage.setItem("userId", userId);  // Store userId if needed
       localStorage.setItem("sessionId", "0");
 
       return { token, role };  // Return token and role for navigation

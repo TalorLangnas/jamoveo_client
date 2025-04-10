@@ -1,11 +1,12 @@
 // src/hooks/usePlayerSession.ts
 
-import { useState } from "react";
+// import { useState } from "react";
 
 import { joinSessionAPI } from "../services/sessionService";  // API call for joining a session
+import { connectSocket, joinSessionSocket } from "../services/socketService";  // Socket connection
 
 const usePlayerSession = () => {
-  const [error, setError] = useState<string | null>(null);  // For storing errors
+  // const [error, setError] = useState<string | null>(null);  // For storing errors
 
   const joinSession = async (sessionUrl: string, token: string) => {
     try {
@@ -14,19 +15,22 @@ const usePlayerSession = () => {
       const response = await joinSessionAPI(sessionUrl, token);
       console.log("Response from joinSessionAPI:", response);  // Debugging log
       if (response.status === 200) {
-        localStorage.setItem("sessionId", response.data.session._id);  
+        localStorage.setItem("sessionId", response.data.session._id);
+        connectSocket();  // Connect to the socket server
+        joinSessionSocket(response.data.session._id, response.data.session._id);  // Join the session using socket
         return response.data;  // Return the response with the session and user info
       } else {
-        setError("Failed to join the session. Please try again.");
-        throw new Error("Failed to join session.");
+        const serverError = response.data?.message || "???";
+        // setError(serverError);
+        throw new Error(serverError);
       }
     } catch (err) {
-      setError("Invalid or expired token");
+      // setError("Invalid or expired token");
       throw err;
     }
   };
 
-  return { error, joinSession };
+  return { joinSession };
 };
 
 export default usePlayerSession;

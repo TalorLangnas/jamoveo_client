@@ -9,8 +9,9 @@ export const loginUser = async (username: string, password: string) => {
   try {
     const response = await axios.post(`${API_URL}/api/auth/login`, { username, password });
     // Return token and role if login is successful
-    const { token, role } = response.data;
-    return { token, role };
+    console.log("Login response:", response.data);  // Debugging log
+    const { token, role, userId } = response.data;
+    return { token, role, userId };  // Return token, role, and userId for further use
   } catch (error) {
     throw new Error("Invalid username or password"); // Handle invalid credentials error
   }

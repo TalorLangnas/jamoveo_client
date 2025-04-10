@@ -9,7 +9,8 @@ import Button from "../components/Button";  // Reusable button component
 const WaitingPage = () => {
   const [sessionUrl, setSessionUrl] = useState("");
   const [formError, setFormError] = useState<string | null>(null);
-  const { error, joinSession } = usePlayerSession();  // Custom hook to join session
+  const [error, setError] = useState<string | null>(null);  // For displaying errors
+  const { joinSession } = usePlayerSession();  // Custom hook to join session
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
@@ -18,11 +19,22 @@ const WaitingPage = () => {
       return;
     }
 
+    const token = localStorage.getItem("token");
+    console.log("Token from localStorage:", token);  // Debugging log
+    if (!token) {
+      setFormError("Token is missing. Please login again.");
+      return;
+    }
+
     try {
-      const sessionData = await joinSession(sessionUrl, localStorage.getItem("token")!);
+      const sessionData = await joinSession(sessionUrl, token);
+      const sessionId = sessionData;
+      console.log("sessionData:", sessionData);  // Debugging log
       navigate("/player", { state: { session: sessionData } });
     } catch (err) {
-      setFormError("Failed to join the session. Please try again.");
+      const errorMessage = (err as Error).message || "An error occurred while joining the session.";
+      setFormError(errorMessage || "An error occurred while joining the session.");
+      setError("test");  // Set error message for invalid token
     }
   };
 

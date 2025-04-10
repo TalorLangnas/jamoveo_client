@@ -7,6 +7,7 @@ import Button from "../components/Button";  // Reusable button component
 import useSession from "../hooks/useSession";  // Import the new session hook
 import "../assets/styles/components/App.css";  // Importing the CSS for styling
 
+
 const AdminMainPage = () => {
   const [query, setQuery] = useState("");
   const [error, setError] = useState<string | null>(null);
