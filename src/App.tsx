@@ -2,7 +2,6 @@
 
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import AdminMainPage from "./pages/AdminMainPage";  // Admin Main Page
-import AdminResultsPage from "./pages/AdminResultsPage";  // Admin Results Page
 import LoginPage from "./pages/LoginPage";  // Login Page
 import PlayerMainPage from "./pages/PlayerMainPage";  // Player Main Page
 import SignupPage from "./pages/SignupPage";  // Signup Page
@@ -11,8 +10,7 @@ import PublicRoute from "./components/routes/PublicRoute";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import WaitingPageGuard from "./components/routes/WaitingPageGuard";
 import PlayerMainPageGuard from "./components/routes/PlayerMainPageGuard";
-import LivePage from "./pages/LivePage";  // Live Page
-// import LivePage from "./pages/LivePage";
+import LivePage from "./pages/LivePage";  
 
 const App = () => {
   return (
@@ -45,16 +43,6 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/admin/results"
-          element={
-            <ProtectedRoute allowedRoles={['admin']}>
-               {/* <AdminResultsPage searchResults={[]} onSelect={(song) => console.log(song)} /> */}
-               <AdminResultsPage />
-            </ProtectedRoute>
-          }
-        />
-
         {/* Protected routes for player */}
         <Route
           path="/waiting"

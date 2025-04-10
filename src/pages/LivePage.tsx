@@ -3,8 +3,9 @@
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Song from '../models/Song'; // Your Song type/interface
-import Button from '../components/Button';
 import { listenQuitEvent, quitEvent } from '../services/socketService'; // Adjust the path if necessary
+import Button from '../components/Button';
+import SongDisplay from '../components/SongDisplay'; 
 
 // Define the expected shape of location.state
 interface LocationState {
@@ -50,6 +51,7 @@ const LivePage: React.FC = () => {
       <p>Song: {song.name}</p>
       <p>Artist: {song.artist}</p>
       {song.image && <img src={song.image} alt={`${song.name} cover`} />}
+      <SongDisplay song={song} />
       {/* Conditionally render the Quit button only if role is "admin" */}
       {role === "admin" && (
         <Button type="button" label="Quit" onClick={() => {quitEvent(sessionId)}} />

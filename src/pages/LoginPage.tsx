@@ -14,16 +14,16 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [formError, setFormError] = useState<string | null>(null);  // For displaying form errors
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const userRole = localStorage.getItem("role");
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   const userRole = localStorage.getItem("role");
     
-    if (token && userRole === "admin") {
-      navigate("/admin");  // Redirect to admin page if logged in as admin
-    } else if (token && userRole === "player") {
-      navigate("/waiting");  // Redirect to waiting page if logged in as player
-    }
-  }, [navigate]);
+  //   if (token && userRole === "admin") {
+  //     navigate("/admin");  // Redirect to admin page if logged in as admin
+  //   } else if (token && userRole === "player") {
+  //     navigate("/waiting");  // Redirect to waiting page if logged in as player
+  //   }
+  // }, [navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

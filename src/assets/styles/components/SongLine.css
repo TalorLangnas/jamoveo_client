@@ -1,0 +1,23 @@
+/* src/components/SongLine.css */
+.song-line {
+    margin: 10px 0;
+    font-size: 1.2rem;
+    line-height: 1.5;
+  }
+  
+  .line-item {
+    margin-bottom: 5px;
+  }
+  
+  .line-chords {
+    display: block;
+    color: #1a7e76;
+    font-weight: bold;
+    margin-bottom: 2px;
+  }
+  
+  .line-lyrics {
+    display: block;
+    color: #2d3436;
+  }
+  
