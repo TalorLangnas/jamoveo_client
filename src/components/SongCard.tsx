@@ -1,7 +1,10 @@
+// src/components/SongCard.tsx
+
 import React from "react";
 import Song from "../models/Song"; // Your Song type/interface
 import { useNavigate } from "react-router-dom";
 import "../assets/styles/components/Card.css";
+import { startSongEvent } from "../services/socketService"; // Import your analytics function
 
 interface SongCardProps {
   song: Song;
@@ -9,11 +12,14 @@ interface SongCardProps {
 
 const SongCard: React.FC<SongCardProps> = ({ song }) => {
   const navigate = useNavigate();
+  const sessionId = localStorage.getItem("sessionId") || ""; // Get the session ID from local storage
 
 
   const handleClick = () => {
     // Navigate to the "/live" page and pass the song ID via state
-    navigate("/live", { state: { songId: song._id } });
+    navigate("/live", { state: { song } });
+    startSongEvent(song._id, sessionId); // Send the custom event to the server
+    console.log(`Song clicked: ${song.name}`); // Debugging log
   };
 
   return (

@@ -1,6 +1,6 @@
 // src/hooks/usePlayerSession.ts
 
-// import { useState } from "react";
+import { useState } from "react";
 
 import { joinSessionAPI } from "../services/sessionService";  // API call for joining a session
 import { connectSocket, joinSessionSocket } from "../services/socketService";  // Socket connection
@@ -29,6 +29,11 @@ const usePlayerSession = () => {
       throw err;
     }
   };
+
+  // const listenEvent = () => {
+  //   listenCustomEvent();  // Listen for custom events from the server
+  //   setCustomEventReceived(true);
+  // }
 
   return { joinSession };
 };

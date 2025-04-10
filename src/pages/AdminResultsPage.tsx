@@ -9,6 +9,7 @@ const AdminResultPage = () => {
   const [foundSongs, setFoundSongs] = useState<Song[]>([]);
   const navigate = useNavigate();
   const location = useLocation();
+  
 
   // Assume the search results are passed as an array of song IDs in location.state.searchResults
   const searchResultsArr = (location.state && (location.state as any).searchResults) as string[] | undefined;
@@ -34,7 +35,7 @@ const AdminResultPage = () => {
     }
     // Empty dependency array ensures this runs only once on mount.
   }, []); 
-
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
       <div className="max-w-4xl mx-auto px-4 py-8">
@@ -44,7 +45,7 @@ const AdminResultPage = () => {
           {foundSongs.map((song) => (
             <SongCard key={song._id || song.name} song={song} />
           ))}
-        </div>
+        </div>        
       </div>
     </div>
   );

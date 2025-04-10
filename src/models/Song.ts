@@ -1,9 +1,21 @@
-interface Song {
-    _id: string;
-    name: string;
-    artist: string;
-    image?: string;
-    // add other properties as necessary
-  }
+// src/models/Song.ts
 
-  export default Song;
+// Define the type for each line item
+export interface ILineItem {
+  lyrics?: string;
+  chords?: string;
+}
+
+// Define a line as an array of line items
+export type ILine = ILineItem[];
+
+// Define the Song interface matching the server-side model
+interface Song {
+  _id: string;
+  name: string;
+  artist: string;
+  body: ILine[];
+  image?: string; // Optional image property
+}
+
+export default Song;
