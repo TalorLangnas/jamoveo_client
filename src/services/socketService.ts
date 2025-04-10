@@ -47,6 +47,23 @@ export const joinSessionSocket = (sessionId: string, userId?: string): void => {
     });
   };
 
+export const quitEvent = (sessionId: string | null): void => {
+  console.log("entered quitEvent function"); // Debugging log
+  if (sessionId) {
+    socket.emit("quit_event", { sessionId });
+    console.log(`Emitted quit_event event for session id: ${sessionId}`);
+  } else {
+    console.error("Song id or session id not provided");
+  }
+};
+
+export const listenQuitEvent = (callback: () => void): void => {
+  socket.on("quit_event", () => {
+    console.log("Received quit_event from server");
+    callback();
+  });
+};
+
 // Function to emit a custom_event to the server with given sessionId and message.
 export const sendCustomEvent = (sessionId: string, message: string): void => {
   if (sessionId && message) {

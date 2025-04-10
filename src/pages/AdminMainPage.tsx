@@ -16,12 +16,12 @@ const AdminMainPage = () => {
   const { error: searchError, sessionUrl, createSession, searchSong } = useAdminSession();
   const { error: sessionError, logout } = useSession();  // Using logout from useSession
 
-  const sessionCreatedRef = useRef(false);
+  // const sessionCreatedRef = useRef(false);
+  const sessionId = localStorage.getItem("sessionId");
 
   useEffect(() => {
-    if (!sessionCreatedRef.current) {
+    if (sessionId === "0") {
       createSession();
-      sessionCreatedRef.current = true;
     }
   }, []);
 

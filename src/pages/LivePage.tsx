@@ -1,9 +1,10 @@
 // src/pages/LivePage.tsx
 
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Song from '../models/Song'; // Your Song type/interface
 import Button from '../components/Button';
+import { listenQuitEvent, quitEvent } from '../services/socketService'; // Adjust the path if necessary
 
 // Define the expected shape of location.state
 interface LocationState {
@@ -11,8 +12,25 @@ interface LocationState {
 }
 
 const LivePage: React.FC = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const role = localStorage.getItem("role");
+  const sessionId = localStorage.getItem("sessionId");
+  
+  useEffect(() => {
+    // Set up the listener for the "quit_event" and navigate on receipt.
+    listenQuitEvent(() => {
+      console.log("Processing quit event action");
+      if (role === "admin") {
+        console.log("Admin quit event received, navigating to main page");
+        navigate("/admin");
+      } else {
+        console.log("Player quit event received, navigating to main page");
+        navigate("/waiting");
+      }
+    });
+  }, [navigate]);
+
   
   // Extract the songId passed via state
   const state = location.state as LocationState | undefined;
@@ -34,7 +52,7 @@ const LivePage: React.FC = () => {
       {song.image && <img src={song.image} alt={`${song.name} cover`} />}
       {/* Conditionally render the Quit button only if role is "admin" */}
       {role === "admin" && (
-        <Button type="button" label="Quit" onClick={() => console.log("click")} />
+        <Button type="button" label="Quit" onClick={() => {quitEvent(sessionId)}} />
       )}
     </div>
   );
