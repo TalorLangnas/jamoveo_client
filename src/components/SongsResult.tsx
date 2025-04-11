@@ -11,8 +11,8 @@ interface SongsResultProps {
 const SongsResult: React.FC<SongsResultProps> = ({ songs }) => {
   return (
     <div>
-      <h1 className="text-4xl font-bold mb-6 text-center">Search Results</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <h1 >Search Results</h1>
+      <div >
         {songs.map((song) => (
           <SongCard key={song._id || song.name} song={song} />
         ))}

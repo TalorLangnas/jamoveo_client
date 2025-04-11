@@ -9,23 +9,22 @@ import useSession from "../hooks/useSession";
 import "../assets/styles/components/App.css"; 
 import Song from '../models/Song';  
 import SongsResult from "../components/SongsResult";
-import { disconnectSocket, disconnectEvent, listenDisconnectEvent } from '../services/socketService'; // Adjust the path if necessary
+import { disconnectSocket, disconnectEvent, listenDisconnectEvent } from '../services/socketService'; 
 
 const AdminMainPage = () => {
   const [query, setQuery] = useState("");
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const { error: searchError, searchSong, songDetails } = useAdminSession();
-  const { logout } = useSession();  // Using logout from useSession
-  const [searchResults, setSearchResults] = useState<Song[]>([]);  // State to store search results
-  const sessionId = localStorage.getItem("sessionId") || ""; // Get the session ID from local storage
+  const { logout } = useSession();  
+  const [searchResults, setSearchResults] = useState<Song[]>([]);  
+  const sessionId = localStorage.getItem("sessionId") || ""; 
 
   useEffect(() => {
-    // Listen for the "disconnect_event" event
     listenDisconnectEvent(() => {
       console.log("Received disconnect_event from server. Disconnecting socket and navigating to login.");
-      disconnectSocket(); // Close the socket connection
-      localStorage.clear(); // Clear local storage
+      disconnectSocket(); 
+      localStorage.clear();
       navigate("/login");
     });
   }, [navigate]);

@@ -16,7 +16,7 @@ const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
     if (role === 'admin') {
       return <Navigate to="/admin" />;
     } else if (role === 'player') {
-      return <Navigate to="/waiting" />;
+      return <Navigate to="/player" />;
     }
   }
   // No token: allow access to login/signup pages.

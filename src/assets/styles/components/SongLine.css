@@ -1,23 +1,35 @@
-/* src/components/SongLine.css */
+/* src/assets/styles/components/SongLine.css */
 .song-line {
-    margin: 10px 0;
-    font-size: 1.2rem;
-    line-height: 1.5;
-  }
-  
-  .line-item {
-    margin-bottom: 5px;
-  }
-  
-  .line-chords {
-    display: block;
-    color: #1a7e76;
-    font-weight: bold;
-    margin-bottom: 2px;
-  }
-  
-  .line-lyrics {
-    display: block;
-    color: #2d3436;
-  }
-  
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chords-row,
+.lyrics-row {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.chords-row span,
+.lyrics-row span {
+  /* A fixed width for alignment. Adjust the width as needed */
+  width: 60px;
+  text-align: center;
+}
+
+.chord {
+  color: #008080;         /* Teal color */
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9em;
+}
+
+.lyric {
+  color: #333;
+  font-family: 'Georgia', serif;
+  font-size: 1em;
+}

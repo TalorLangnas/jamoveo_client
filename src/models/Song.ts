@@ -14,8 +14,8 @@ interface Song {
   _id: string;
   name: string;
   artist: string;
-  body: ILine[];
   image?: string; // Optional image property
+  body: ILine[];
 }
 
 export default Song;
