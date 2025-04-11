@@ -11,6 +11,9 @@ export const connectSocket = () => {
   socket.connect();  // Connect to the server
   console.log("Socket connected...");  // Debbug Log the socket ID
 }
+export const disconnectSocket = () => {
+  socket.disconnect();  // Disconnect from the server
+}
 
 // Listen for a connection confirmation
 socket.on("connect", () => {
@@ -53,7 +56,7 @@ export const quitEvent = (sessionId: string | null): void => {
     socket.emit("quit_event", { sessionId });
     console.log(`Emitted quit_event event for session id: ${sessionId}`);
   } else {
-    console.error("Song id or session id not provided");
+    console.error("sssionId not provided");
   }
 };
 
@@ -64,22 +67,18 @@ export const listenQuitEvent = (callback: () => void): void => {
   });
 };
 
-// Function to emit a custom_event to the server with given sessionId and message.
-export const sendCustomEvent = (sessionId: string, message: string): void => {
-  if (sessionId && message) {
-    socket.emit("custom_event", { sessionId, message });
-    console.log(`Emitted custom_event for session: ${sessionId} with message: ${message}`);
+export const disconnectEvent = (sessionId: string | null): void => {
+  if (sessionId) {
+    socket.emit("disconnect_event", { sessionId });
   } else {
-    console.error("Session ID or message not provided");
+    console.error("sssionId not provided");
   }
 };
 
-// Function to listen for a custom_event from the server and call the callback.
-// When a custom_event is detected, the callback is invoked with the event data.
-export const listenCustomEvent = (callback: (data: { sessionId: string; message: string }) => void): void => {
-  socket.on("custom_event", (data: { sessionId: string; message: string }) => {
-    console.log("Received custom_event:", data);
-    callback(data);
+export const listenDisconnectEvent = (callback: () => void): void => {
+  socket.on("disconnect_event", () => {
+    callback();
   });
 };
+
 

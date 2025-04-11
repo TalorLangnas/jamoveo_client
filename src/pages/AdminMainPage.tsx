@@ -1,32 +1,34 @@
 // src/pages/AdminMainPage.tsx
-// import React, { useState, useEffect, useRef } from "react";
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useAdminSession from "../hooks/useAdminSession";  // Custom hook for admin session logic
-import InputField from "../components/InputField";  // Reusable input component
-import Button from "../components/Button";  // Reusable button component
-import useSession from "../hooks/useSession";  // Import the new session hook
-import "../assets/styles/components/App.css";  // Importing the CSS for styling
-import Song from '../models/Song';  // Import the Song type
+import useAdminSession from "../hooks/useAdminSession";  
+import InputField from "../components/InputField";  
+import Button from "../components/Button"; 
+import useSession from "../hooks/useSession"; 
+import "../assets/styles/components/App.css"; 
+import Song from '../models/Song';  
 import SongsResult from "../components/SongsResult";
+import { disconnectSocket, disconnectEvent, listenDisconnectEvent } from '../services/socketService'; // Adjust the path if necessary
 
 const AdminMainPage = () => {
   const [query, setQuery] = useState("");
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  // const { error: searchError, sessionUrl, song, createSession, searchSong } = useAdminSession();
-  const { error: searchError, createSession, searchSong, songDetails } = useAdminSession();
-  const { error: sessionError, logout } = useSession();  // Using logout from useSession
+  const { error: searchError, searchSong, songDetails } = useAdminSession();
+  const { logout } = useSession();  // Using logout from useSession
   const [searchResults, setSearchResults] = useState<Song[]>([]);  // State to store search results
-  // const sessionCreatedRef = useRef(false);
-  const sessionId = localStorage.getItem("sessionId");
+  const sessionId = localStorage.getItem("sessionId") || ""; // Get the session ID from local storage
 
-  // useEffect(() => {
-  //   if (!sessionCreatedRef.current) {
-  //     createSession();
-  //     sessionCreatedRef.current = true;
-  //   }
-  // }, []);
+  useEffect(() => {
+    // Listen for the "disconnect_event" event
+    listenDisconnectEvent(() => {
+      console.log("Received disconnect_event from server. Disconnecting socket and navigating to login.");
+      disconnectSocket(); // Close the socket connection
+      localStorage.clear(); // Clear local storage
+      navigate("/login");
+    });
+  }, [navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,13 +55,12 @@ const AdminMainPage = () => {
   };
 
   const handleLogout = async () => {
-    const success = await logout();  // Call the logout function from the hook
-
-    if (success) {
-      localStorage.clear();  
-      navigate("/login");  // Redirect to login page
-    } else {
-      alert("Logout failed. Please try again.");
+    console.log("enter handleLogout");  // Debugging log
+    try {
+      await logout();
+      disconnectEvent(sessionId);  // Disconnect the event listener
+    } catch (error) {
+      throw error;  // Propagate error to be handled by the component
     }
   };
 

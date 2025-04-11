@@ -28,19 +28,21 @@ const LoginPage = () => {
     }
 
     try {
-      const { role } = await login(username, password);  
+      const { role } = await login(username, password);
       if (role === "admin") {
-        await createSession(); 
+        await createSession();
         navigate("/admin");  // Navigate to Admin page
       } else if (role === "player") {
         const token = localStorage.getItem("token");
         await joinSession(token);
-        navigate("/player");  // Navigate to Waiting page
+        navigate("/player");  // Navigate to Waiting page  
       }
     } catch (err: any) {
+      // Clear local storage and set the form error message
       localStorage.clear();
-      setFormError(err.response.data.message);
-      throw err;  // Propagate error to be handled by the component
+      setFormError("An error occurred during login.");
+      // Optionally, you could also log the error:
+      console.error("Login error:", err);
     }
   };
 
