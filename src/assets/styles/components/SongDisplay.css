@@ -1,0 +1,17 @@
+/* src/components/SongDisplay.css */
+
+.song-display-wrapper {
+    position: relative;
+  }
+  
+  .song-display-container {
+    max-height: 80vh; /* Limit the container's height to force scrolling if content is long */
+    overflow-y: auto;
+    padding: 20px;
+    background: #fff;
+    color: #333;
+    font-size: 1.5rem;
+  }
+  
+  /* No need for .toggle-scroll-button here — it belongs to AutoScrollToggle */
+  

@@ -1,0 +1,31 @@
+/* src/assets/styles/components/AutoScrollToggle.css */
+
+.auto-scroll-controls {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .auto-scroll-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 50px;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .auto-scroll-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  .auto-scroll-button:active {
+    transform: scale(0.95);
+  }
+  
