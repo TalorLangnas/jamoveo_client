@@ -27,7 +27,7 @@ const LivePage: React.FC = () => {
         navigate("/admin");
       } else {
         console.log("Player quit event received, navigating to main page");
-        navigate("/waiting");
+        navigate("/player");
       }
     });
   }, [navigate]);

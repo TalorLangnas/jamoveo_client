@@ -7,6 +7,8 @@ const API_URL = "http://localhost:5000";  // Replace with your actual backend UR
 // Function to create a session
 export const createSessionAPI = async (token: string) => {
   try {
+    const path = `${API_URL}/api/session`; // debugging log
+    console.log("path:", path);  // Debugging log
     const response = await axios.post(
       `${API_URL}/api/session`,
       {}, // You can pass the body if needed, but in this case, it's empty
@@ -23,23 +25,31 @@ export const createSessionAPI = async (token: string) => {
 };
 
 // Function to join a session
-export const joinSessionAPI = async (sessionUrl: string, token: string) => {
+// export const joinSessionAPI = async (sessionUrl: string, token: string) => {
+export const joinSessionAPI = async (token: string | null) => {
   try {
-    const reqBody = { sessionUrl };  
-    const reqHeader = { Authorization: `Bearer ${token}` };  
-    
+    // const reqBody = { sessionUrl };  
     // Send request to the server (use sessionUrl directly)
     const response = await axios.post(
-      sessionUrl + "/join",  
-      reqBody,  
+      // sessionUrl + "/join",
+      `${API_URL}/api/session/join`,
+      {}, // You can pass the body if needed, but in this case, it's empty
       {
-        headers: reqHeader,  
+        headers: {
+          Authorization: `Bearer ${token}`,  // Include the admin token in the Authorization header
+        },
       }
     );
 
     return response;  
-  } catch (error) {
-    throw new Error("Error occurred while joining the session.");
+  } catch (error: any) {
+    if (error.response) {
+      // throw new Error(error.response.data.message);  // Throw the error message from the server
+      throw error
+    } else {
+      // throw new Error("Error occurred while joining the session.");
+      throw error
+    }
   }
 };
 

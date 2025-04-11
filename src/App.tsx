@@ -5,10 +5,8 @@ import AdminMainPage from "./pages/AdminMainPage";  // Admin Main Page
 import LoginPage from "./pages/LoginPage";  // Login Page
 import PlayerMainPage from "./pages/PlayerMainPage";  // Player Main Page
 import SignupPage from "./pages/SignupPage";  // Signup Page
-import WaitingPage from "./pages/WaitingPage";  // Waiting page
 import PublicRoute from "./components/routes/PublicRoute";  
 import ProtectedRoute from "./components/routes/ProtectedRoute";
-import WaitingPageGuard from "./components/routes/WaitingPageGuard";
 import PlayerMainPageGuard from "./components/routes/PlayerMainPageGuard";
 import LivePage from "./pages/LivePage";  
 
@@ -41,15 +39,6 @@ const App = () => {
             <ProtectedRoute allowedRoles={['admin']}>
               <AdminMainPage />
             </ProtectedRoute>
-          }
-        />
-        {/* Protected routes for player */}
-        <Route
-          path="/waiting"
-          element={
-            <WaitingPageGuard>
-              <WaitingPage />
-            </WaitingPageGuard>
           }
         />
 

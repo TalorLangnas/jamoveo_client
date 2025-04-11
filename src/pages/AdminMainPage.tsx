@@ -1,5 +1,6 @@
 // src/pages/AdminMainPage.tsx
-import React, { useState, useEffect, useRef } from "react";
+// import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAdminSession from "../hooks/useAdminSession";  // Custom hook for admin session logic
 import InputField from "../components/InputField";  // Reusable input component
@@ -14,38 +15,19 @@ const AdminMainPage = () => {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   // const { error: searchError, sessionUrl, song, createSession, searchSong } = useAdminSession();
-  const { error: searchError, sessionUrl, createSession, searchSong, songDetails } = useAdminSession();
+  const { error: searchError, createSession, searchSong, songDetails } = useAdminSession();
   const { error: sessionError, logout } = useSession();  // Using logout from useSession
   const [searchResults, setSearchResults] = useState<Song[]>([]);  // State to store search results
-  const sessionCreatedRef = useRef(false);
+  // const sessionCreatedRef = useRef(false);
   const sessionId = localStorage.getItem("sessionId");
 
-  useEffect(() => {
-    if (!sessionCreatedRef.current) {
-      createSession();
-      sessionCreatedRef.current = true;
-    }
-  }, []);
-
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   if (!query.trim()) {
-  //     setError("Please enter a valid search query.");
-  //     return;
+  // useEffect(() => {
+  //   if (!sessionCreatedRef.current) {
+  //     createSession();
+  //     sessionCreatedRef.current = true;
   //   }
+  // }, []);
 
-  //   try {
-  //     const foundSongId = await searchSong(query);
-  //     console.log("foundSongId:", foundSongId);  // Debugging log
-  //     if (foundSongId){
-  //       navigate("/admin/results", { state: { searchResults: [foundSongId] } });
-  //     } else {
-  //       setError("No song found. Please try a different search.");
-  //     }
-  //   } catch (err) {
-  //     setError("Error occurred while searching for the song. Please try again.");
-  //   }
-  // };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!query.trim()) {
@@ -67,18 +49,6 @@ const AdminMainPage = () => {
       }
     } catch (err) {
       setError("Error occurred while searching for the song. Please try again.");
-    }
-  };
-
-  const handleCopyClick = () => {
-    if (sessionUrl) {
-      const tempInput = document.createElement("input");
-      tempInput.value = sessionUrl;
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      document.execCommand("copy");
-      document.body.removeChild(tempInput);
-      alert("Session URL copied to clipboard!");
     }
   };
 
@@ -113,17 +83,6 @@ const AdminMainPage = () => {
           <SongsResult songs={searchResults} />  // Render the SongsResult component with the search results
         )}
       </div>
-
-      {sessionUrl && (
-        <div>
-          <p>Session created successfully! Here is your session URL:</p>
-          <div className="session-url">
-            <span>{sessionUrl}</span>
-            <Button type="button" label="Copy URL" onClick={handleCopyClick} />
-          </div>
-        </div>
-      )}
-
       <Button type="button" label="Logout" onClick={handleLogout} />  {/* Logout button */}
     </div>
   );

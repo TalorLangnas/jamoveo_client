@@ -8,9 +8,7 @@ import { joinSessionSocket, connectSocket } from "../services/socketService";  /
 
 const useAdminSession = () => {
   const [error, setError] = useState<string | null>(null);
-  const [sessionUrl, setSessionUrl] = useState<string | null>(null);  // For storing the session URL
-  // const [song, setSong] = useState<any | null>(null);  
-
+  
   // Function to create a session
   const createSession = async () => {
     const token = localStorage.getItem("token");  // Get the admin token from localStorage
@@ -24,7 +22,6 @@ const useAdminSession = () => {
       // Include Authorization header with the token for the session creation request
       const response = await createSessionAPI(token);
       if (response.status === 201) {
-        setSessionUrl(response.data.sessionUrl);  // Set the session URL if successful
         localStorage.setItem("sessionId", response.data._id);  // Save session ID in localStorage
         console.log("response.data: ", response.data);  // Debugging log
         connectSocket();  // Connect to the socket server
@@ -77,7 +74,7 @@ const useAdminSession = () => {
     }
   };
 
-  return { error, sessionUrl, createSession, searchSong, songDetails };
+  return { error, createSession, searchSong, songDetails };
 };
 
 export default useAdminSession;

@@ -26,7 +26,6 @@ const useAuth = () => {
       localStorage.setItem("token", user.token);
       localStorage.setItem("role", user.role);
       localStorage.setItem("instrument", user.instrument);  
-      localStorage.setItem("instrument", user.instrument);
       localStorage.setItem("sessionId", "0");
       // return { token, role };  // Return token and role for navigation
       return user

@@ -20,9 +20,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, children 
   if (!allowedRoles.includes(role)) {
     if (role === 'admin') {
       return <Navigate to="/admin" />;
-    } else if (role === 'player' && sessionId === '0') {
-      return <Navigate to="/waiting" />;
-    } else if (role === 'player' && sessionId !== '0') {
+    } else if (role === 'player') {
       return <Navigate to="/player" />; // Redirect to game page if sessionId is not '0'
     } else {
       return <Navigate to="/login" />;

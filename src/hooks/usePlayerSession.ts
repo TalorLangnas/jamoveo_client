@@ -8,11 +8,12 @@ import { connectSocket, joinSessionSocket } from "../services/socketService";  /
 const usePlayerSession = () => {
   // const [error, setError] = useState<string | null>(null);  // For storing errors
 
-  const joinSession = async (sessionUrl: string, token: string) => {
+  const joinSession = async (token: string | null) => {
     try {
+      // create request from the client to get the session URL
       console.log("enter joinSession");  // Debugging log
       // Call the joinSessionAPI function to join the session
-      const response = await joinSessionAPI(sessionUrl, token);
+      const response = await joinSessionAPI(token);
       console.log("Response from joinSessionAPI:", response);  // Debugging log
       if (response.status === 200) {
         localStorage.setItem("sessionId", response.data.session._id);
@@ -29,11 +30,6 @@ const usePlayerSession = () => {
       throw err;
     }
   };
-
-  // const listenEvent = () => {
-  //   listenCustomEvent();  // Listen for custom events from the server
-  //   setCustomEventReceived(true);
-  // }
 
   return { joinSession };
 };

@@ -1,11 +1,13 @@
 // src/pages/LoginPage.tsx
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";  // For routing
-import useAuth from "../hooks/useAuth";  // Custom hook for auth logic
-import InputField from "../components/InputField";  // Reusable input component
-import Button from "../components/Button";  // Reusable button component
-import { validateLoginForm } from "../utils/validation";  // Import new validation function
-import "../assets/styles/components/App.css";  // Importing the CSS for styling
+import { useNavigate } from "react-router-dom";  
+import useAuth from "../hooks/useAuth";  
+import useAdminSession from "../hooks/useAdminSession";  
+import InputField from "../components/InputField";  
+import Button from "../components/Button";  
+import { validateLoginForm } from "../utils/validation";  
+import usePlayerSession from "../hooks/usePlayerSession"; 
+import "../assets/styles/components/App.css";  
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -13,17 +15,8 @@ const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [formError, setFormError] = useState<string | null>(null);  // For displaying form errors
-
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token");
-  //   const userRole = localStorage.getItem("role");
-    
-  //   if (token && userRole === "admin") {
-  //     navigate("/admin");  // Redirect to admin page if logged in as admin
-  //   } else if (token && userRole === "player") {
-  //     navigate("/waiting");  // Redirect to waiting page if logged in as player
-  //   }
-  // }, [navigate]);
+  const { joinSession } = usePlayerSession();  // Custom hook to join session
+  const { createSession } = useAdminSession();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,18 +28,21 @@ const LoginPage = () => {
     }
 
     try {
-      const { role } = await login(username, password);  // Call login function from useAuth
-
+      const { role } = await login(username, password);  
       if (role === "admin") {
+        await createSession(); 
         navigate("/admin");  // Navigate to Admin page
       } else if (role === "player") {
-        navigate("/waiting");  // Navigate to Waiting page
+        const token = localStorage.getItem("token");
+        await joinSession(token);
+        navigate("/player");  // Navigate to Waiting page
       }
-    } catch (err) {
-      setFormError("Invalid username or password.");
+    } catch (err: any) {
+      localStorage.clear();
+      setFormError(err.response.data.message);
+      throw err;  // Propagate error to be handled by the component
     }
   };
-
 
   return (
     <div className="login-page">
