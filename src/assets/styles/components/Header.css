@@ -1,50 +1,49 @@
-/* Header.css */
+/* src/assets/styles/components/Header.css */
 .app-header {
-    background: linear-gradient(135deg, #6a82fb, #0b3602f9);
-    color: #fff;
-    padding: 20px 0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  }
-  
+  background: #2c3e50;         /* Uniform elegant dark color */
+  color: #fff;
+  padding: 10px 0;             /* Reduced vertical padding for thinner header */
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-logo a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.8rem;
+}
+
+.header-nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.header-nav a:hover {
+  text-decoration: underline;
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
   .header-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: 0 10px;
   }
-  
+
   .app-logo a {
-    text-decoration: none;
-    color: #fff;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
-  
+
   .header-nav a {
-    margin-left: 20px;
-    text-decoration: none;
-    color: #fff;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
+    margin-left: 10px;
   }
-  
-  .header-nav a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Mobile responsive */
-  @media (max-width: 600px) {
-    .header-container {
-      padding: 0 10px;
-    }
-    
-    .app-logo a {
-      font-size: 1.5rem;
-    }
-    
-    .header-nav a {
-      font-size: 0.95rem;
-      margin-left: 10px;
-    }
-  }
-  
+}

@@ -4,34 +4,37 @@ import { useNavigate } from "react-router-dom";
 import { listenSongEvent, listenDisconnectEvent, disconnectSocket } from "../services/socketService"; 
 import useSocketInitializer from "../hooks/useSocketInitializer";
 import Song from "../models/Song";
+import DotsLoader from "../components/DotsLoader"; // Import the loader component
+import "../assets/styles/components/PlayerMainPage.css"; // Import the CSS file for styling
 
 const PlayerMainPage: React.FC = () => {
   const sessionId = localStorage.getItem("sessionId") || "";
-  useSocketInitializer(sessionId);  
+  useSocketInitializer(sessionId);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Set up the listener for the "start_song" event.
+    // Listener for "start_song" event
     listenSongEvent((data: { song: Song }) => {
       console.log("Song received from server:", data.song);
-      // When the event is received, navigate to the Live Page with the song data.
       navigate("/live", { state: { song: data.song } });
     });
 
-    // Listen for the "disconnect_event" event
+    // Listener for "disconnect_event" event
     listenDisconnectEvent(() => {
       console.log("Received disconnect_event from server. Disconnecting socket and navigating to login.");
-      disconnectSocket(); // Close the socket connection
-      localStorage.clear(); // Clear local storage
+      disconnectSocket();
+      localStorage.clear();
       navigate("/login");
     });
   }, [navigate]);
 
   return (
     <div className="player-main-page">
-      <h2>Welcome to the Player Main Page</h2>
-      <h3>Waiting for the admin to start the song...</h3>
-      <p>You are now part of the session.</p>
+      <h1>Welcome to the rehearsal</h1>
+      <div className="waiting-container">
+        <p className="waiting-text">Waiting for the admin to start the song</p>
+        <DotsLoader />
+      </div>
     </div>
   );
 };

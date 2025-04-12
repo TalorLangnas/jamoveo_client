@@ -1,0 +1,43 @@
+/* src/assets/styles/pages/PlayerMainPage.css */
+
+.player-main-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+    padding: 20px;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .player-main-page h2 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+  }
+  
+  .waiting-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .waiting-text {
+    font-size: 1.3rem;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    .player-main-page h2 {
+      font-size: 1.8rem;
+    }
+    .waiting-text {
+      font-size: 1.1rem;
+    }
+  }
+  

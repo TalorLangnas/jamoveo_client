@@ -47,7 +47,7 @@ const LoginPage: React.FC = () => {
   return (
     <div className="login-page">
       <div className="top-section">
-        <h2>Login</h2>
+        <h2>Welcome to JaMoveo</h2>
       </div>
       <div className="bottom-section">
         <div className="login-card">

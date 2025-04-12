@@ -1,31 +1,30 @@
-/* Footer.css */
+/* src/assets/styles/components/Footer.css */
 .app-footer {
-    background: #34495e;
-    color: #ecf0f1;
-    text-align: center;
-    padding: 20px;
-    margin-top: 20px;
+  background: #2c3e50;         /* Same elegant color as header */
+  color: #ecf0f1;
+  text-align: center;
+  padding: 10px 0;             /* Reduced padding for a thinner footer */
+  margin-top: 20px;
+}
+
+.footer-links {
+  margin-top: 10px;
+}
+
+.footer-links a {
+  color: #ecf0f1;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .app-footer {
+    padding: 8px 10px;
+    font-size: 0.9rem;
   }
-  
-  .footer-links {
-    margin-top: 10px;
-  }
-  
-  .footer-links a {
-    color: #ecf0f1;
-    margin: 0 10px;
-    text-decoration: none;
-  }
-  
-  .footer-links a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Mobile responsive */
-  @media (max-width: 600px) {
-    .app-footer {
-      padding: 15px 10px;
-      font-size: 0.9rem;
-    }
-  }
-  
+}

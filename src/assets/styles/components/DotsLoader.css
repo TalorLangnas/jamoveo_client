@@ -1,0 +1,40 @@
+/* src/assets/styles/components/DotsLoader.css */
+
+/* Container for the dots */
+.dots-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Style for each dot */
+  .dot {
+    width: 10px;
+    height: 10px;
+    background-color: #555; /* Adjust dot color if needed */
+    border-radius: 50%;
+    margin: 0 5px;
+    animation: bounce 1s infinite;
+  }
+  
+  /* Stagger animation delays for a sequential bounce effect */
+  .dot:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  .dot:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  
+  /* Bounce animation keyframes */
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    50% {
+      transform: translateY(-8px);
+      opacity: 0.7;
+    }
+  }
+  
