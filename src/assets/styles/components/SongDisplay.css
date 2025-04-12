@@ -1,17 +1,43 @@
-/* src/components/SongDisplay.css */
-
+/* Container for the whole SongDisplay card */
 .song-display-wrapper {
-    position: relative;
+  background-color: #ffffff;  /* Clean white background */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 900px;
+  overflow: hidden;
+}
+
+/* The container that holds the song header and lines; scrollable if content overflows */
+.song-display-container {
+  padding: 20px;
+  overflow-y: auto;
+  max-height: 70vh;
+}
+
+/* Song header */
+.song-display-container h2 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 8px;
+}
+
+.song-display-container h3 {
+  font-size: 1.2rem;
+  color: #34495e;
+  margin-bottom: 16px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .song-display-wrapper {
+    max-width: 95%;
+    margin: 10px auto;
   }
-  
-  .song-display-container {
-    max-height: 80vh; /* Limit the container's height to force scrolling if content is long */
-    overflow-y: auto;
-    padding: 20px;
-    background: #fff;
-    color: #333;
+  .song-display-container h2 {
     font-size: 1.5rem;
   }
-  
-  /* No need for .toggle-scroll-button here — it belongs to AutoScrollToggle */
-  
+  .song-display-container h3 {
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,74 @@
+/* src/assets/styles/pages/AdminMainPage.css */
+
+.admin-main-page {
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #f7f9fc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.admin-main-page h2 {
+  font-size: 2.2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.admin-main-page form {
+  width: 100%;
+  max-width: 500px;
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.admin-main-page .error {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 15px;
+  color: #d32f2f;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Container for search results with slide-down animation */
+.songs-result-container {
+  width: 100%;
+  max-width: 800px;
+  margin-top: 20px;
+  animation: slideDown 0.5s ease-out;
+}
+
+/* Slide-down keyframes for animated appearance */
+@keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Container for search results with slide-down animation */
+  .songs-result-container {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 20px;
+    animation: slideDown 1.5s ease-out;  /* Increase duration for slower animation */
+  }
+
+/* Responsive adjustments for mobile devices */
+@media (max-width: 600px) {
+  .admin-main-page h2 {
+    font-size: 1.8rem;
+  }
+  .admin-main-page form {
+    padding: 20px;
+    max-width: 95%;
+  }
+}

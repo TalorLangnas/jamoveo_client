@@ -1,35 +1,47 @@
-/* src/assets/styles/components/SongLine.css */
+/* Each song line container, laid out as two rows */
 .song-line {
-  margin: 10px 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  margin-bottom: 12px;
 }
 
-.chords-row,
+/* Row for chords */
+.chords-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.chords-row .chord {
+  flex: 1;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+  color: #16a085; /* Teal-ish color for chords */
+}
+
+/* Row for lyrics */
 .lyrics-row {
   display: flex;
-  justify-content: center;
-  gap: 5px;
+  flex-wrap: wrap;
+  gap: 4px;
 }
 
-.chords-row span,
-.lyrics-row span {
-  /* A fixed width for alignment. Adjust the width as needed */
-  width: 60px;
+.lyrics-row .lyric {
+  flex: 1;
   text-align: center;
+  font-family: 'Arial', sans-serif;
+  font-size: 1rem;
+  color: #2c3e50;
 }
 
-.chord {
-  color: #008080;         /* Teal color */
-  font-weight: bold;
-  text-transform: uppercase;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 0.9em;
-}
-
-.lyric {
-  color: #333;
-  font-family: 'Georgia', serif;
-  font-size: 1em;
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .chords-row .chord {
+    font-size: 0.75rem;
+  }
+  .lyrics-row .lyric {
+    font-size: 0.9rem;
+  }
 }

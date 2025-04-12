@@ -1,7 +1,7 @@
 // src/components/SongLine.tsx
 import React from 'react';
 import { ILine } from '../models/Song';
-import '../assets/styles/components/SongLine.css'; 
+import '../assets/styles/components/SongLine.css';
 
 interface SongLineProps {
   line: ILine;
@@ -11,7 +11,6 @@ interface SongLineProps {
 const SongLine: React.FC<SongLineProps> = ({ line, onlyLyrics = false }) => {
   return (
     <div className="song-line">
-      {/* Only render the chords row if not onlyLyrics */}
       {!onlyLyrics && (
         <div className="chords-row">
           {line.map((lineItem, index) => (

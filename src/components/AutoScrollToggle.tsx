@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import '../assets/styles/components/AutoScrollToggle.css'; // Adjust the path as necessary
 
+
 interface AutoScrollToggleProps {
   scrollContainerRef: React.RefObject<HTMLDivElement | null>;
 }

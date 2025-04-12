@@ -3,18 +3,15 @@ import React, { useRef } from "react";
 import Song from "../models/Song";
 import SongLine from "./SongLine";
 import AutoScrollToggle from './AutoScrollToggle'
-import "../assets/styles/components/SongDisplay.css"; // Adjust the path as necessary
+import "../assets/styles/components/SongDisplay.css";
 
 interface SongDisplayProps {
   song: Song;
 }
 
 const SongDisplay: React.FC<SongDisplayProps> = ({ song }) => {
-  // Decide if only lyrics should be shown (for singers)
   const instrument = localStorage.getItem("instrument") || "";
   const onlyLyrics = instrument === "singer";
-
-  // Create a ref for the scrollable container
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -26,7 +23,6 @@ const SongDisplay: React.FC<SongDisplayProps> = ({ song }) => {
           <SongLine key={index} line={line} onlyLyrics={onlyLyrics} />
         ))}
       </div>
-      {/* Include the auto-scroll toggle button as a separate floating component */}
       <AutoScrollToggle scrollContainerRef={scrollContainerRef} />
     </div>
   );

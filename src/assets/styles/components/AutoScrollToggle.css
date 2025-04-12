@@ -1,31 +1,50 @@
 /* src/assets/styles/components/AutoScrollToggle.css */
-
 .auto-scroll-controls {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    justify-content: center;
-    margin-top: 10px;
-  }
-  
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+/* Base styling for the auto-scroll buttons */
+.auto-scroll-button {
+  background-color: #1976d2;  /* Primary blue */
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover state: brighten slightly and enlarge */
+.auto-scroll-button:hover {
+  background-color: #1565c0;
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+/* Active state: compress slightly and reduce shadow */
+.auto-scroll-button:active {
+  transform: scale(0.95);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive adjustments for mobile screens */
+@media (max-width: 600px) {
   .auto-scroll-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 15px 25px;
-    border-radius: 50px;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    transition: background-color 0.3s, transform 0.2s;
+    padding: 10px 20px;
+    font-size: 0.9rem;
   }
   
-  .auto-scroll-button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
+  .auto-scroll-controls {
+    gap: 10px;
+    margin-top: 15px;
+    padding: 5px;
   }
-  
-  .auto-scroll-button:active {
-    transform: scale(0.95);
-  }
-  
+}

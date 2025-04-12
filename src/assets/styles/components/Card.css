@@ -1,67 +1,83 @@
-body {
-    font-family: sans-serif;
-    margin: 0 auto;
-    padding: 25px;
-    max-width: 400px;
-    min-width: 400px;
-    background-color: #dfe6e9;
-    text-align: center;
-  }
-  
-  .heading {
-    text-align: center;
-    font-size: 2em;
-    color: #2d3436;
-    margin: 20px 0 30px;
-  }
-  
+/* src/assets/styles/components/Card.css */
+
+/* Overall card container */
+.card {
+  background: #fff;                    /* Clean white background */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 300px;
+  margin: 10px;
+  padding: 0;  /* We'll give spacing to inner sections */
+}
+
+/* Card top section with increased padding */
+.card-top {
+  display: flex;
+  align-items: center;
+  padding: 20px;  /* Increased padding for more space at edges */
+}
+
+/* Image styling */
+.card-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+/* Title container for the song name */
+.card-title {
+  flex: 1;
+  padding-right: 10px;  /* Extra gap on the right */
+}
+
+.card-title h2 {
+  font-size: 1.2rem;
+  margin: 0;
+  color: #333;
+}
+
+/* Card bottom section with extra padding */
+.card-bottom {
+  padding: 20px;  /* Increased padding for a spacious feel */
+  background-color: #f8f8f8; /* Light background to contrast with main card */
+  border-top: 1px solid #e0e0e0;
+}
+
+.card-info {
+  font-size: 1rem;
+  color: #666;
+  margin: 0;
+}
+
+/* Hover effect: slight lift and enhanced shadow */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+}
+
+/* Responsive adjustments for mobile devices */
+@media (max-width: 600px) {
   .card {
-    border-radius: 25px;
-    position: relative;
-    padding: 25px 15px;
-    background-color: #81ecec;
-    margin: 50px 0;
-    height: 200px;
-    box-shadow: 0 2px 5px #ccc;
-    text-align: left;
+    max-width: 90%;
+    margin: 10px auto;
   }
   
-  .top {
-    border-radius: 25px 25px 0 0;
-    height: 100px;
-    width: 100%;
-    background-color: #00cec9;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
+  .card-img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
   }
   
-  .name {
-    font-size: 2em;
-    color: #2d3436;
-    display: flex;
-    flex: 1;
-    margin: 10% 20px 0;
+  .card-title h2 {
+    font-size: 1.1rem;
   }
   
-  .card img {
-    margin: 30px 20px 0 0;
+  .card-info {
+    font-size: 0.9rem;
   }
-  
-  .circle-img {
-    border-radius: 50%;
-    border: 7px solid #fff;
-    width: 120px;
-    height: 120px;
-  }
-  
-  .bottom {
-    margin-top: 120px;
-  }
-  
-  .info {
-    margin: 20px 0;
-    color: #1a7e76;
-  }
-  
+}

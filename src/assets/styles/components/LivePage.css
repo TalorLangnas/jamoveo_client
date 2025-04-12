@@ -1,0 +1,92 @@
+/* src/assets/styles/pages/LivePage.css */
+
+/* Full-page container */
+.live-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    box-sizing: border-box;
+  }
+  
+  /* Header styling */
+  .live-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .live-header h1 {
+    font-size: 2.5rem;
+    margin: 0;
+    color: #2c3e50;
+  }
+  
+  .live-header p {
+    font-size: 1.2rem;
+    color: #34495e;
+    margin: 8px 0 0;
+  }
+  
+  .separator {
+    margin: 0 8px;
+    color: #999;
+  }
+  
+  /* Image container styling */
+  .live-image-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px 0;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .live-image {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+  
+  /* Content section styling (SongDisplay component container) */
+  .live-content {
+    width: 100%;
+    max-width: 900px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    overflow-y: auto;
+    flex-grow: 1;
+  }
+  
+  /* Quit button - positioned fixed at the bottom right on larger screens */
+  .live-quit {
+    margin-top: 20px;
+  }
+  
+  @media (min-width: 768px) {
+    .live-quit {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+    }
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    .live-header h1 {
+      font-size: 2rem;
+    }
+    .live-header p {
+      font-size: 1rem;
+    }
+    .live-content {
+      max-width: 95%;
+      padding: 15px;
+    }
+  }
+  

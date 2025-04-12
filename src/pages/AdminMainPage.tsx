@@ -11,30 +11,29 @@ import Song from '../models/Song';
 import SongsResult from "../components/SongsResult";
 import { disconnectSocket, disconnectEvent, listenDisconnectEvent, listenSongEvent } from '../services/socketService'; 
 import useSocketInitializer from "../hooks/useSocketInitializer";
+import "../assets/styles/components/AdminMainPage.css";  
 
-const AdminMainPage = () => {
+const AdminMainPage: React.FC = () => {
   const [query, setQuery] = useState("");
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const { error: searchError, searchSong, songDetails } = useAdminSession();
-  const { logout } = useSession();  
-  const [searchResults, setSearchResults] = useState<Song[]>([]);  
-  const sessionId = localStorage.getItem("sessionId") || ""; 
+  const { logout } = useSession();
+  const [searchResults, setSearchResults] = useState<Song[]>([]);
+  const sessionId = localStorage.getItem("sessionId") || "";
 
   useSocketInitializer(sessionId);  // Initialize socket connection
 
   useEffect(() => {
     listenDisconnectEvent(() => {
       console.log("Received disconnect_event from server. Disconnecting socket and navigating to login.");
-      disconnectSocket(); 
+      disconnectSocket();
       localStorage.clear();
       navigate("/login");
     });
 
-    // Set up the listener for the "start_song" event.
     listenSongEvent((data: { song: Song }) => {
       console.log("Song received from server:", data.song);
-      // When the event is received, navigate to the Live Page with the song data.
       navigate("/live", { state: { song: data.song } });
     });
   }, [navigate]);
@@ -48,13 +47,12 @@ const AdminMainPage = () => {
 
     try {
       const foundSongId = await searchSong(query);
-      console.log("foundSongId:", foundSongId);  // Debugging log
-      if (foundSongId){
+      console.log("foundSongId:", foundSongId);
+      if (foundSongId) {
         const songs: Song[] = await songDetails(foundSongId);
-        console.log("songs:", songs);  // Debugging log
+        console.log("songs:", songs);
         setSearchResults(songs);
       } else {
-        console.log("enter to error");  // Debugging log
         setError("No song found. Please try a different search.");
       }
     } catch (err) {
@@ -63,12 +61,12 @@ const AdminMainPage = () => {
   };
 
   const handleLogout = async () => {
-    console.log("enter handleLogout");  // Debugging log
+    console.log("enter handleLogout");
     try {
-      disconnectEvent(sessionId);  // Disconnect the event listener
+      disconnectEvent(sessionId);
       await logout();
     } catch (error) {
-      throw error;  // Propagate error to be handled by the component
+      throw error;
     }
   };
 
@@ -87,12 +85,14 @@ const AdminMainPage = () => {
         />
         <Button type="submit" label="Search" />
       </form>
-      <div>
-        {searchResults && searchResults.length > 0 && (
-          <SongsResult songs={searchResults} />  // Render the SongsResult component with the search results
-        )}
-      </div>
-      <Button type="button" label="Logout" onClick={handleLogout} />  {/* Logout button */}
+      
+      {searchResults && searchResults.length > 0 && (
+        <div className="songs-result-container">
+          <SongsResult songs={searchResults} />
+        </div>
+      )}
+
+      <Button type="button" label="Logout" onClick={handleLogout} />
     </div>
   );
 };
