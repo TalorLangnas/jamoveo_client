@@ -40,8 +40,7 @@ const AdminMainPage = () => {
       const foundSongId = await searchSong(query);
       console.log("foundSongId:", foundSongId);  // Debugging log
       if (foundSongId){
-        // navigate("/admin/results", { state: { searchResults: [foundSongId] } });
-        const songs: Song[] = await songDetails([foundSongId]);
+        const songs: Song[] = await songDetails(foundSongId);
         console.log("songs:", songs);  // Debugging log
         setSearchResults(songs);
       } else {

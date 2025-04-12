@@ -41,7 +41,7 @@ const useAdminSession = () => {
     try {
       console.log("enter searchSong");  // Debugging log
       const response = await searchSongAPI(query); 
-      console.log("response.status from the server:", response);  // Debugging log
+      console.log("response from the server:", response);  // Debugging log
       if (response.status === 200) {
         // setSong(response.data);
         console.log("Song found:", response.data);  // Debugging log 
@@ -57,6 +57,8 @@ const useAdminSession = () => {
   };
 
   const songDetails = async (songIds: string[]): Promise<Song[]> => {
+    console.log("enter songDetails");  // Debugging log
+    console.log("given data:", songIds);  // Debugging log
     try {
       console.log("enter songDetails");  // Debugging log
       console.log("songIds:", songIds);    // Debugging log

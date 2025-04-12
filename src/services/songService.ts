@@ -5,6 +5,7 @@ import axios from "axios";
 const API_URL = "http://localhost:5000";  // Replace with your actual backend URL
 
 export const getSongById = async (songId: string) => {
+  console.log("input in getSongById:", songId);  // Debugging log
   try {
     const token = localStorage.getItem("token");
 
