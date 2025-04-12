@@ -9,10 +9,12 @@ import PublicRoute from "./components/routes/PublicRoute";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import PlayerMainPageGuard from "./components/routes/PlayerMainPageGuard";
 import LivePage from "./pages/LivePage";  
+import MainLayout from "./components/MainLayout";
 
 const App = () => {
   return (
     <Router>
+      <MainLayout>
       <Routes>
         {/* Public Routes */}
         <Route
@@ -66,6 +68,7 @@ const App = () => {
           element={<Navigate to="/login" replace />}
         />
       </Routes>
+      </MainLayout>
     </Router>          
   );
 };

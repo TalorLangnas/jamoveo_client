@@ -1,0 +1,64 @@
+/* Container for the input field */
+.input-field {
+    position: relative;
+    margin-bottom: 16px;
+  }
+  
+  /* Style the input field */
+  .input-field input {
+    width: 100%;
+    padding: 14px 12px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+  }
+  
+  /* When focused, change the border color */
+  .input-field input:focus {
+    border-color: #1976d2;
+    outline: none;
+  }
+  
+  /* Style the label as a floating label */
+  .input-field label {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    color: #aaa; /* Light color */
+    font-size: 1rem;
+    pointer-events: none;
+    transition: 0.2s ease all;
+    background: white; 
+    padding: 0 4px;
+  }
+  
+  /* When the input is focused or has text (not showing placeholder), move the label above */
+  .input-field input:focus + label,
+  .input-field input:not(:placeholder-shown) + label {
+    top: 0;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    color: #1976d2;
+  }
+  
+  /* Responsive adjustments for smaller screens */
+  @media (max-width: 600px) {
+    .input-field input {
+      padding: 12px 10px;
+      font-size: 0.9rem;
+    }
+    
+    .input-field label {
+      left: 10px;
+      font-size: 0.9rem;
+    }
+    
+    .input-field input:focus + label,
+    .input-field input:not(:placeholder-shown) + label {
+      font-size: 0.75rem;
+    }
+  }
+  

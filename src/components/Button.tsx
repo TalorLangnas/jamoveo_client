@@ -1,6 +1,8 @@
 // src/components/Button.tsx
 
 import React from "react";
+import "../assets/styles/components/Button.css";
+
 
 interface ButtonProps {
   type: "submit" | "button";

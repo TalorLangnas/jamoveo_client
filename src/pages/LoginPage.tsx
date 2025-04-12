@@ -7,15 +7,15 @@ import InputField from "../components/InputField";
 import Button from "../components/Button";  
 import { validateLoginForm } from "../utils/validation";  
 import usePlayerSession from "../hooks/usePlayerSession"; 
-import "../assets/styles/components/App.css";  
+import "../assets/styles/components/LoginPage.css";
 
-const LoginPage = () => {
+const LoginPage: React.FC = () => {
   const navigate = useNavigate();
-  const { error, login } = useAuth();  // Using the custom hook for login logic
+  const { error, login } = useAuth();  
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [formError, setFormError] = useState<string | null>(null);  // For displaying form errors
-  const { joinSession } = usePlayerSession();  // Custom hook to join session
+  const [formError, setFormError] = useState<string | null>(null);
+  const { joinSession } = usePlayerSession();  
   const { createSession } = useAdminSession();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -31,47 +31,44 @@ const LoginPage = () => {
       const { role } = await login(username, password);
       if (role === "admin") {
         await createSession();
-        navigate("/admin");  // Navigate to Admin page
+        navigate("/admin");
       } else if (role === "player") {
         const token = localStorage.getItem("token");
         await joinSession(token);
-        navigate("/player");  // Navigate to Waiting page  
+        navigate("/player");
       }
     } catch (err: any) {
-      // Clear local storage and set the form error message
       localStorage.clear();
       setFormError("An error occurred during login.");
-      // Optionally, you could also log the error:
       console.error("Login error:", err);
     }
   };
 
   return (
     <div className="login-page">
-      <h2>Login</h2>
-
-      {error && <div className="error">{error}</div>}
-      {formError && <div className="error">{formError}</div>}
-
-      <form onSubmit={handleSubmit}>
-        <InputField
-          type="text"
-          label="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <InputField
-          type="password"
-          label="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Button type="submit" label="Log In"/>
-      </form>
-      {/* Add a Sign Up button for navigation */}
-      <div className="signup-redirect">
-        <p>Don't have an account?</p>
-        <Button type="button" label="Sign Up" onClick={() => navigate("/signup")} />
+      <div className="top-section">
+        <h2>Login</h2>
+      </div>
+      <div className="bottom-section">
+        <div className="login-card">
+          {error && <div className="error">{error}</div>}
+          {formError && <div className="error">{formError}</div>}
+          <form onSubmit={handleSubmit}>
+            <InputField
+              type="text"
+              label="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <InputField
+              type="password"
+              label="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Button type="submit" label="Log In" />
+          </form>
+        </div>
       </div>
     </div>
   );

@@ -1,0 +1,59 @@
+/* src/assets/styles/pages/LoginPage.css */
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* Remove background if needed, or keep your gradient */
+    /* background: linear-gradient(135deg, #a8edea, #fed6e3); */
+}
+
+.top-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.top-section h2 {
+    font-size: 2rem;
+    color: #333;
+    margin: 0;
+}
+
+.bottom-section {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Updated Login Card Styling */
+.login-card {
+    background: #fff;
+    padding: 50px 40px;       /* Increased padding for extra space */
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 500px;         /* Increased max width from 400px to 500px */
+    min-height: 450px;        /* Optional: set a minimum height for additional vertical space */
+}
+
+/* Error message styling remains unchanged */
+.error {
+    color: #e74c3c;
+    margin-bottom: 12px;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* Responsive styling for mobile devices */
+@media (max-width: 600px) {
+    .top-section h2 {
+        font-size: 1.8rem;
+    }
+    .login-card {
+        padding: 40px 20px;
+        max-width: 95%;
+        min-height: auto; /* or keep a lower min-height if necessary */
+    }
+}

@@ -1,0 +1,23 @@
+/* MainLayout.css */
+.main-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: #f4f4f4;
+  }
+  
+  .main-content {
+    flex-grow: 1;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+  
+  /* Mobile responsive */
+  @media (max-width: 600px) {
+    .main-content {
+      padding: 10px;
+      max-width: 95%;
+    }
+  }
+  
