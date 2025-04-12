@@ -1,10 +1,13 @@
 // src/pages/PlayerMainPage.tsx
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { listenSongEvent, listenDisconnectEvent, disconnectSocket } from "../services/socketService"; // Adjust the path if necessary
+import { listenSongEvent, listenDisconnectEvent, disconnectSocket } from "../services/socketService"; 
+import useSocketInitializer from "../hooks/useSocketInitializer";
 import Song from "../models/Song";
 
 const PlayerMainPage: React.FC = () => {
+  const sessionId = localStorage.getItem("sessionId") || "";
+  useSocketInitializer(sessionId);  
   const navigate = useNavigate();
 
   useEffect(() => {

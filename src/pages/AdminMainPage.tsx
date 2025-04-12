@@ -9,7 +9,8 @@ import useSession from "../hooks/useSession";
 import "../assets/styles/components/App.css"; 
 import Song from '../models/Song';  
 import SongsResult from "../components/SongsResult";
-import { disconnectSocket, disconnectEvent, listenDisconnectEvent } from '../services/socketService'; 
+import { disconnectSocket, disconnectEvent, listenDisconnectEvent, listenSongEvent } from '../services/socketService'; 
+import useSocketInitializer from "../hooks/useSocketInitializer";
 
 const AdminMainPage = () => {
   const [query, setQuery] = useState("");
@@ -20,12 +21,21 @@ const AdminMainPage = () => {
   const [searchResults, setSearchResults] = useState<Song[]>([]);  
   const sessionId = localStorage.getItem("sessionId") || ""; 
 
+  useSocketInitializer(sessionId);  // Initialize socket connection
+
   useEffect(() => {
     listenDisconnectEvent(() => {
       console.log("Received disconnect_event from server. Disconnecting socket and navigating to login.");
       disconnectSocket(); 
       localStorage.clear();
       navigate("/login");
+    });
+
+    // Set up the listener for the "start_song" event.
+    listenSongEvent((data: { song: Song }) => {
+      console.log("Song received from server:", data.song);
+      // When the event is received, navigate to the Live Page with the song data.
+      navigate("/live", { state: { song: data.song } });
     });
   }, [navigate]);
 
@@ -55,8 +65,8 @@ const AdminMainPage = () => {
   const handleLogout = async () => {
     console.log("enter handleLogout");  // Debugging log
     try {
-      await logout();
       disconnectEvent(sessionId);  // Disconnect the event listener
+      await logout();
     } catch (error) {
       throw error;  // Propagate error to be handled by the component
     }

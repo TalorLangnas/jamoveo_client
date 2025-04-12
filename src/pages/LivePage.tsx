@@ -6,6 +6,7 @@ import Song from '../models/Song'; // Your Song type/interface
 import { listenQuitEvent, quitEvent } from '../services/socketService'; // Adjust the path if necessary
 import Button from '../components/Button';
 import SongDisplay from '../components/SongDisplay'; 
+import useSocketInitializer from "../hooks/useSocketInitializer";
 
 // Define the expected shape of location.state
 interface LocationState {
@@ -16,7 +17,9 @@ const LivePage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const role = localStorage.getItem("role");
-  const sessionId = localStorage.getItem("sessionId");
+  const sessionId = localStorage.getItem("sessionId") || "";
+
+  useSocketInitializer(sessionId); 
   
   useEffect(() => {
     // Set up the listener for the "quit_event" and navigate on receipt.

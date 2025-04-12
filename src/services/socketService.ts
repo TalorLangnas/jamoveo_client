@@ -11,7 +11,9 @@ export const connectSocket = () => {
   socket.connect();  // Connect to the server
   console.log("Socket connected...");  // Debbug Log the socket ID
 }
+
 export const disconnectSocket = () => {
+  console.log("Socket disconnected...");  // Debugging log
   socket.disconnect();  // Disconnect from the server
 }
 
@@ -69,6 +71,7 @@ export const listenQuitEvent = (callback: () => void): void => {
 
 export const disconnectEvent = (sessionId: string | null): void => {
   if (sessionId) {
+    console.log("entered disconnectEvent function"); // Debugging log
     socket.emit("disconnect_event", { sessionId });
   } else {
     console.error("sssionId not provided");
