@@ -20,7 +20,8 @@ const AdminMainPage: React.FC = () => {
   const [query, setQuery] = useState("");
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  const { error: searchError, searchSong, songDetails } = useAdminSession();
+  // const { error: searchError, searchSong, songDetails } = useAdminSession();
+  const { searchSong, songDetails } = useAdminSession();
   const { logout } = useSession();
   const [searchResults, setSearchResults] = useState<Song[]>([]);
   const sessionId = localStorage.getItem("sessionId") || "";
@@ -54,14 +55,17 @@ const AdminMainPage: React.FC = () => {
       if (foundSongId) {
         const songs: Song[] = await songDetails(foundSongId);
         console.log("songs:", songs);
+        setError(null); 
         setSearchResults(songs);
       } else {
         setError("No song found. Please try a different search.");
+        setSearchResults([]); 
       }
     } catch (err) {
       setError(
         "Error occurred while searching for the song. Please try again."
       );
+      setSearchResults([]); 
     }
   };
 
@@ -79,7 +83,7 @@ const AdminMainPage: React.FC = () => {
     <div className="admin-main-page">
       <h2>Search any song...</h2>
       {error && <div className="error">{error}</div>}
-      {searchError && <div className="error">{searchError}</div>}
+      {/* {searchError && <div className="error">{searchError}</div>} */}
 
       <form onSubmit={handleSubmit}>
         <InputField
