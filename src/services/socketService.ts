@@ -2,8 +2,8 @@ import io from "socket.io-client";
 import Song from "../models/Song";
 
 // Socket service for managing client-server communication using Socket.IO
-
-const socket = io("http://localhost:5000", {
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+const socket = io(API_URL, {
   autoConnect: false,
 });
 
