@@ -1,8 +1,7 @@
-// src/components/SongsResult.tsx
-import React from 'react';
-import Song from '../models/Song';
-import SongCard from './SongCard';
-import "../assets/styles/components/SongsResult.css";  // Import the CSS file
+import React from "react";
+import Song from "../models/Song";
+import SongCard from "./SongCard";
+import "../assets/styles/components/SongsResult.css";
 
 interface SongsResultProps {
   songs: Song[];
@@ -16,7 +15,7 @@ const SongsResult: React.FC<SongsResultProps> = ({ songs }) => {
         {songs.map((song) => (
           <SongCard key={song._id || song.name} song={song} />
         ))}
-      </div>        
+      </div>
     </div>
   );
 };

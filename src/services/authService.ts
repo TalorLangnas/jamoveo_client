@@ -1,47 +1,60 @@
-// src/services/authService.ts
-
 import axios from "axios";
-import { User } from "../models/User";  // Import the User interface
-const API_URL = "http://localhost:5000";  // Update with your actual backend URL
+import { User } from "../models/User";
+const API_URL = "http://localhost:5000";
 
-// Function for user login
-export const loginUser = async (username: string, password: string): Promise<User> => {
+// Authentication service for user login and signup
+
+export const loginUser = async (
+  username: string,
+  password: string
+): Promise<User> => {
   try {
-    const response = await axios.post(`${API_URL}/api/auth/login`, { username, password });
-    // Return token and role if login is successful
-    console.log("Login response:", response.data);  // Debugging log
-    const  { token, role, userId, instrument } = response.data;
+    const response = await axios.post(`${API_URL}/api/auth/login`, {
+      username,
+      password,
+    });
+    const { token, role, userId, instrument } = response.data;
 
-    // Construct the User object (using the input username if no username is returned)
     const user: User = {
-      username: username, // Alternatively, use response.data.username if available
+      username: username,
       token: token,
       instrument: instrument,
       role: role,
       userId: userId,
-      sessionId: "0",  // Default sessionId, can be updated later
+      sessionId: "0", // Default sessionId
     };
 
-    // return { token, role, userId, instrument };  // Return token, role, and userId for further use
     return user;
   } catch (error) {
-    throw new Error("Invalid username or password"); // Handle invalid credentials error
+    throw new Error("Invalid username or password");
   }
 };
 
-// Function for user signup
-export const signupUser = async (username: string, password: string, instrument: string, role: "player" | "admin" = "player") => {
+export const signupUser = async (
+  username: string,
+  password: string,
+  instrument: string,
+  role: "player" | "admin" = "player"
+) => {
   if (role === "player") {
     try {
-      const response = await axios.post(`${API_URL}/api/auth/signup`, { username, password, instrument });
-      return response.data;  // Return the response data if signup is successful
+      const response = await axios.post(`${API_URL}/api/auth/signup`, {
+        username,
+        password,
+        instrument,
+      });
+      return response.data;
     } catch (error) {
       throw new Error("Signup failed"); // Handle signup failure
     }
   } else {
     try {
-      const response = await axios.post(`${API_URL}/api/auth/signup/admin`, { username, password, instrument });
-      return response.data;  // Return the response data for admin signup
+      const response = await axios.post(`${API_URL}/api/auth/signup/admin`, {
+        username,
+        password,
+        instrument,
+      });
+      return response.data;
     } catch (error) {
       throw new Error("Signup failed");
     }

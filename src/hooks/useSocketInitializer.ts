@@ -1,11 +1,10 @@
-// src/hooks/useSocketInitializer.ts
 import { useEffect } from "react";
 import { connectSocket, joinSessionSocket } from "../services/socketService";
 
+// Custom hook to initialize the socket connection and join a session
 const useSocketInitializer = (sessionId: string, userId?: string) => {
-    console.log("useSocketInitializer called with sessionId:", sessionId, "and userId:", userId); // Debugging log
   useEffect(() => {
-    connectSocket(); // Reconnect to the server
+    connectSocket();
     if (sessionId) {
       joinSessionSocket(sessionId, userId);
     }

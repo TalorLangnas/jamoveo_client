@@ -1,16 +1,14 @@
-// src/pages/SignupPage.tsx
-
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";  
-import useAuth from "../hooks/useAuth";  
-import InputField from "../components/InputField";  
-import Button from "../components/Button";  
-import { validateForm } from "../utils/validation";  
+import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import InputField from "../components/InputField";
+import Button from "../components/Button";
+import { validateForm } from "../utils/validation";
 import "../assets/styles/components/SignupPage.css";
 
 const SignupPage: React.FC = () => {
   const navigate = useNavigate();
-  const { error, signup } = useAuth();
+  const { signup } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [instrument, setInstrument] = useState("");
@@ -58,7 +56,6 @@ const SignupPage: React.FC = () => {
           onChange={(e) => setInstrument(e.target.value)}
         />
 
-        {/* Role selection with enhanced styling */}
         <div className="role-selection">
           <label>Role:</label>
           <select

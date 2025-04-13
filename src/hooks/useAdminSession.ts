@@ -1,17 +1,15 @@
-// src/hooks/useAdminSearch.ts
-
 import { useState } from "react";
-import { searchSongAPI, getSongDetails, getSongById } from "../services/songService";  // Import services
-import { createSessionAPI } from "../services/sessionService";  // Import the session creation API
-import Song from "../models/Song";  // Import the Song model
-import { joinSessionSocket, connectSocket } from "../services/socketService";  // Import the socket service
+import { searchSongAPI, getSongById } from "../services/songService";
+import { createSessionAPI } from "../services/sessionService";
+import Song from "../models/Song";
+import { joinSessionSocket, connectSocket } from "../services/socketService";
 
 const useAdminSession = () => {
   const [error, setError] = useState<string | null>(null);
-  
-  // Function to create a session
+
+  // Create a new session by the admin
   const createSession = async () => {
-    const token = localStorage.getItem("token");  // Get the admin token from localStorage
+    const token = localStorage.getItem("token");
 
     if (!token) {
       setError("Admin token is missing. Please login as admin.");
@@ -19,60 +17,45 @@ const useAdminSession = () => {
     }
 
     try {
-      // Include Authorization header with the token for the session creation request
       const response = await createSessionAPI(token);
       if (response.status === 201) {
-        localStorage.setItem("sessionId", response.data._id);  // Save session ID in localStorage
-        console.log("response.data: ", response.data);  // Debugging log
-        connectSocket();  // Connect to the socket server
-        joinSessionSocket(response.data._id, response.data.admin);  // Create a room using the session ID
-        console.log("Session created successfully:", response.data);  // Debugging log
+        localStorage.setItem("sessionId", response.data._id);
+        connectSocket(); // Connect to the socket server
+        joinSessionSocket(response.data._id, response.data.admin); // Create a room using the session ID
       } else {
         throw new Error("Failed to create session.");
       }
     } catch (err) {
-      const errorMessage = (err as Error).message || "Error occurred while creating session.";
+      const errorMessage =
+        (err as Error).message || "Error occurred while creating session.";
       setError(errorMessage);
     }
   };
 
-  // Function to search for a song
+  // Search for a song using the provided query string.
   const searchSong = async (query: string) => {
     try {
-      console.log("enter searchSong");  // Debugging log
-      const response = await searchSongAPI(query); 
-      console.log("response from the server:", response);  // Debugging log
+      const response = await searchSongAPI(query);
+
       if (response.status === 200) {
-        // setSong(response.data);
-        console.log("Song found:", response.data);  // Debugging log 
-        return response.data;  // Return the song data
+        return response.data;
       } else {
-        // setSong(null); 
         setError("No song found. Please try a different search.");
       }
     } catch (err) {
       setError("Error occurred while searching for the song.");
-      throw err;  // Propagate error to be handled by the component
+      throw err;
     }
   };
 
   const songDetails = async (songIds: string[]): Promise<Song[]> => {
-    console.log("enter songDetails");  // Debugging log
-    console.log("given data:", songIds);  // Debugging log
     try {
-      console.log("enter songDetails");  // Debugging log
-      console.log("songIds:", songIds);    // Debugging log
-  
-      // Fetch all songs concurrently using Promise.all
-      const songs = await Promise.all(
-        songIds.map(id => getSongById(id))
-      );
-      
-      console.log("Songs found:", songs);  // Debugging log
-      return songs;  // Return an array of song objects
+      const songs = await Promise.all(songIds.map((id) => getSongById(id)));
+
+      return songs;
     } catch (err) {
       setError("Error occurred while searching for the songs.");
-      throw err;  // Propagate the error to be handled by the component
+      throw err;
     }
   };
 

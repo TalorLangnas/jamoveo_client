@@ -1,7 +1,6 @@
-// src/components/SongLine.tsx
-import React from 'react';
-import { ILine } from '../models/Song';
-import '../assets/styles/components/SongLine.css';
+import React from "react";
+import { ILine } from "../models/Song";
+import "../assets/styles/components/SongLine.css";
 
 interface SongLineProps {
   line: ILine;

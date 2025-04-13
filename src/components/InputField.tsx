@@ -1,6 +1,6 @@
 // src/components/InputField.tsx
 import React from "react";
-import '../assets/styles/components/InputField.css';
+import "../assets/styles/components/InputField.css";
 
 interface InputFieldProps {
   type: string;
@@ -9,11 +9,21 @@ interface InputFieldProps {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-const InputField: React.FC<InputFieldProps> = ({ type, label, value, onChange }) => {
+const InputField: React.FC<InputFieldProps> = ({
+  type,
+  label,
+  value,
+  onChange,
+}) => {
   return (
     <div className="input-field">
-      {/* Set placeholder to a single space, so :placeholder-shown works */}
-      <input type={type} value={value} onChange={onChange} placeholder=" " required />
+      <input
+        type={type}
+        value={value}
+        onChange={onChange}
+        placeholder=" "
+        required
+      />
       <label>{label}</label>
     </div>
   );

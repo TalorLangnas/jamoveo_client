@@ -1,6 +1,5 @@
-/* Container for the whole SongDisplay card */
 .song-display-wrapper {
-  background-color: #ffffff;  /* Clean white background */
+  background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin: 20px auto;
@@ -8,14 +7,12 @@
   overflow: hidden;
 }
 
-/* The container that holds the song header and lines; scrollable if content overflows */
 .song-display-container {
   padding: 20px;
   overflow-y: auto;
   max-height: 70vh;
 }
 
-/* Song header */
 .song-display-container h2 {
   font-size: 1.8rem;
   color: #2c3e50;
@@ -28,7 +25,6 @@
   margin-bottom: 16px;
 }
 
-/* Responsive adjustments */
 @media (max-width: 600px) {
   .song-display-wrapper {
     max-width: 95%;

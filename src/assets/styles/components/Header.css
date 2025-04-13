@@ -1,18 +1,17 @@
-/* src/assets/styles/components/Header.css */
 .app-header {
-  background: #2c3e50;         /* Uniform elegant dark color */
+  background: #2c3e50;         
   color: #fff;
-  padding: 10px 0;             /* Reduced vertical padding for thinner header */
+  padding: 10px 0;            
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
 .header-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
 }
 
 .app-logo a {
@@ -32,7 +31,6 @@
   text-decoration: underline;
 }
 
-/* Mobile responsive */
 @media (max-width: 600px) {
   .header-container {
     padding: 0 10px;

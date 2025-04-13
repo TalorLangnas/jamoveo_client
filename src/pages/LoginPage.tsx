@@ -1,21 +1,20 @@
-// src/pages/LoginPage.tsx
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";  
-import useAuth from "../hooks/useAuth";  
-import useAdminSession from "../hooks/useAdminSession";  
-import InputField from "../components/InputField";  
-import Button from "../components/Button";  
-import { validateLoginForm } from "../utils/validation";  
-import usePlayerSession from "../hooks/usePlayerSession"; 
+import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import useAdminSession from "../hooks/useAdminSession";
+import InputField from "../components/InputField";
+import Button from "../components/Button";
+import { validateLoginForm } from "../utils/validation";
+import usePlayerSession from "../hooks/usePlayerSession";
 import "../assets/styles/components/LoginPage.css";
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
-  const { error, login } = useAuth();  
+  const { error, login } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [formError, setFormError] = useState<string | null>(null);
-  const { joinSession } = usePlayerSession();  
+  const { joinSession } = usePlayerSession();
   const { createSession } = useAdminSession();
 
   const handleSubmit = async (e: React.FormEvent) => {

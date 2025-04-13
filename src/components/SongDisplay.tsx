@@ -1,8 +1,7 @@
-// src/components/SongDisplay.tsx
 import React, { useRef } from "react";
 import Song from "../models/Song";
 import SongLine from "./SongLine";
-import AutoScrollToggle from './AutoScrollToggle'
+import AutoScrollToggle from "./AutoScrollToggle";
 import "../assets/styles/components/SongDisplay.css";
 
 interface SongDisplayProps {

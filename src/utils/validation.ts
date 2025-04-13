@@ -1,11 +1,18 @@
 // Validation function for signup form
-export const validateForm = (username: string, password: string, instrument: string): boolean => {
-    return username.trim() !== "" && password.trim() !== "" && instrument.trim() !== "";
-  };
-
-// New validation function for the login form
-export const validateLoginForm = (username: string, password: string): boolean => {
-  return username.trim() !== "" && password.trim() !== "";
+export const validateForm = (
+  username: string,
+  password: string,
+  instrument: string
+): boolean => {
+  return (
+    username.trim() !== "" && password.trim() !== "" && instrument.trim() !== ""
+  );
 };
 
-  
+// New validation function for the login form
+export const validateLoginForm = (
+  username: string,
+  password: string
+): boolean => {
+  return username.trim() !== "" && password.trim() !== "";
+};

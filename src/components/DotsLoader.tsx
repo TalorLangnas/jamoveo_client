@@ -1,4 +1,3 @@
-// src/components/DotsLoader.tsx
 import React from "react";
 import "../assets/styles/components/DotsLoader.css";
 

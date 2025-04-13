@@ -1,9 +1,8 @@
-// src/components/SongCard.tsx
 import React from "react";
-import Song from "../models/Song"; // Your Song type/interface
+import Song from "../models/Song";
 import { useNavigate } from "react-router-dom";
-import "../assets/styles/components/Card.css"; // New CSS file for styling
-import { startSongEvent } from "../services/socketService"; // Function to send event
+import "../assets/styles/components/Card.css";
+import { startSongEvent } from "../services/socketService";
 
 interface SongCardProps {
   song: Song;
@@ -11,10 +10,9 @@ interface SongCardProps {
 
 const SongCard: React.FC<SongCardProps> = ({ song }) => {
   const navigate = useNavigate();
-  const sessionId = localStorage.getItem("sessionId") || ""; // Get the session ID
+  const sessionId = localStorage.getItem("sessionId") || "";
 
   const handleClick = () => {
-    // Navigate to LivePage with the song in state and notify the server
     navigate("/live", { state: { song } });
     startSongEvent(song._id, sessionId);
     console.log(`Song clicked: ${song.name}`);
@@ -24,7 +22,11 @@ const SongCard: React.FC<SongCardProps> = ({ song }) => {
     <div className="card" onClick={handleClick}>
       <div className="card-top">
         {song.image && (
-          <img className="card-img" src={song.image} alt={`${song.name} cover`} />
+          <img
+            className="card-img"
+            src={song.image}
+            alt={`${song.name} cover`}
+          />
         )}
         <div className="card-title">
           <h2>{song.name}</h2>

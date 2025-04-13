@@ -1,5 +1,3 @@
-/* src/assets/styles/pages/AdminMainPage.css */
-
 .admin-main-page {
   min-height: 100vh;
   padding: 20px;
@@ -34,7 +32,6 @@
   text-align: center;
 }
 
-/* Container for search results with slide-down animation */
 .songs-result-container {
   width: 100%;
   max-width: 800px;
@@ -42,7 +39,6 @@
   animation: slideDown 0.5s ease-out;
 }
 
-/* Slide-down keyframes for animated appearance */
 @keyframes slideDown {
     from {
       opacity: 0;
@@ -54,15 +50,13 @@
     }
   }
   
-  /* Container for search results with slide-down animation */
   .songs-result-container {
     width: 100%;
     max-width: 800px;
     margin-top: 20px;
-    animation: slideDown 1.5s ease-out;  /* Increase duration for slower animation */
+    animation: slideDown 1.5s ease-out;  
   }
 
-/* Responsive adjustments for mobile devices */
 @media (max-width: 600px) {
   .admin-main-page h2 {
     font-size: 1.8rem;

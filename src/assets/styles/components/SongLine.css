@@ -1,11 +1,9 @@
-/* Each song line container, laid out as two rows */
 .song-line {
   display: flex;
   flex-direction: column;
   margin-bottom: 12px;
 }
 
-/* Row for chords */
 .chords-row {
   display: flex;
   flex-wrap: wrap;
@@ -16,12 +14,11 @@
 .chords-row .chord {
   flex: 1;
   text-align: center;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   font-size: 0.85rem;
-  color: #16a085; /* Teal-ish color for chords */
+  color: #16a085;
 }
 
-/* Row for lyrics */
 .lyrics-row {
   display: flex;
   flex-wrap: wrap;
@@ -31,12 +28,11 @@
 .lyrics-row .lyric {
   flex: 1;
   text-align: center;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   font-size: 1rem;
   color: #2c3e50;
 }
 
-/* Responsive adjustments */
 @media (max-width: 600px) {
   .chords-row .chord {
     font-size: 0.75rem;

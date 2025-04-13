@@ -1,17 +1,20 @@
-// src/pages/AdminMainPage.tsx
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useAdminSession from "../hooks/useAdminSession";  
-import InputField from "../components/InputField";  
-import Button from "../components/Button"; 
-import useSession from "../hooks/useSession"; 
-import "../assets/styles/components/App.css"; 
-import Song from '../models/Song';  
+import useAdminSession from "../hooks/useAdminSession";
+import InputField from "../components/InputField";
+import Button from "../components/Button";
+import useSession from "../hooks/useSession";
+import "../assets/styles/components/App.css";
+import Song from "../models/Song";
 import SongsResult from "../components/SongsResult";
-import { disconnectSocket, disconnectEvent, listenDisconnectEvent, listenSongEvent } from '../services/socketService'; 
+import {
+  disconnectSocket,
+  disconnectEvent,
+  listenDisconnectEvent,
+  listenSongEvent,
+} from "../services/socketService";
 import useSocketInitializer from "../hooks/useSocketInitializer";
-import "../assets/styles/components/AdminMainPage.css";  
+import "../assets/styles/components/AdminMainPage.css";
 
 const AdminMainPage: React.FC = () => {
   const [query, setQuery] = useState("");
@@ -22,11 +25,11 @@ const AdminMainPage: React.FC = () => {
   const [searchResults, setSearchResults] = useState<Song[]>([]);
   const sessionId = localStorage.getItem("sessionId") || "";
 
-  useSocketInitializer(sessionId);  // Initialize socket connection
+  useSocketInitializer(sessionId); // Initialize socket connection
 
+  // Listen for disconnect event and song event
   useEffect(() => {
     listenDisconnectEvent(() => {
-      console.log("Received disconnect_event from server. Disconnecting socket and navigating to login.");
       disconnectSocket();
       localStorage.clear();
       navigate("/login");
@@ -56,7 +59,9 @@ const AdminMainPage: React.FC = () => {
         setError("No song found. Please try a different search.");
       }
     } catch (err) {
-      setError("Error occurred while searching for the song. Please try again.");
+      setError(
+        "Error occurred while searching for the song. Please try again."
+      );
     }
   };
 
@@ -85,7 +90,7 @@ const AdminMainPage: React.FC = () => {
         />
         <Button type="submit" label="Search" />
       </form>
-      
+
       {searchResults && searchResults.length > 0 && (
         <div className="songs-result-container">
           <SongsResult songs={searchResults} />
