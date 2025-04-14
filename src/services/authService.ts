@@ -1,7 +1,7 @@
 import axios from "axios";
 import { User } from "../models/User";
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+const API_URL = "https://my-express-app-9ynn.onrender.com";
 
 // Authentication service for user login and signup
 
