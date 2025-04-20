@@ -2,8 +2,25 @@
 
 This is the **frontend application** for **JaMoveo** – a real-time, mobile-friendly web app designed to enhance rehearsal sessions for the Moveo band. Built with React and TypeScript, the client allows musicians to join live sessions, view song lyrics and chords based on their instrument, and stay in sync during rehearsals.
 
-The backend for this project is hosted here:  
-🔗 [JaMoveo_server Repository](https://github.com/TalorLangnas/jaMoveo_server)
+> 🔗 **Backend repository:** [jaMoveo_server Repository](https://github.com/TalorLangnas/jaMoveo_server)
+
+---
+
+## ✨ Features
+
+- 🔐 User registration and login with instrument selection  
+- 🎭 Role-based interfaces (Admin, Singer, Instrumentalist) 
+- 🧭 Full session control for Admin:
+  - Session starts automatically upon admin login
+  - Search and select songs in English or Hebrew
+  - End the song at any time to return all participants to the main page
+  - Logging out disconnects all users and closes the session   
+- 🎼 Adaptive live view based on user role:
+  - Singers view lyrics only
+  - Instrumentalists view both chords and lyrics   
+- ⏬ Auto-scroll feature for live view  
+- 📱 Mobile-first responsive design for smooth experience across devices
+- ⚡ Real-time communication via WebSockets (Socket.IO)
 
 ---
 
@@ -37,18 +54,6 @@ Access the deployed app:
    - When the admin clicks **"Quit"**, all users return to their main page.  
    - When the admin logs out, all players are logged out and the session is closed.
 
----
-
-
-## ✨ Features
-
-- 🔐 User registration and login with instrument selection  
-- 🎭 Role-based interfaces (Admin, Singer, Instrumentalist)  
-- 🎼 Real-time display of song lyrics/chords based on user role  
-- 🔍 Admin song search and selection  
-- ⏬ Auto-scroll feature for live view  
-- 📱 Fully responsive design for seamless mobile experience  
-- ⚡ Real-time communication via WebSockets (Socket.IO)
 
 ---
 
