@@ -2,7 +2,7 @@
 
 This is the **frontend application** for **JaMoveo** – a real-time, mobile-friendly web app designed to enhance rehearsal sessions for the Moveo band. Built with React and TypeScript, the client allows musicians to join live sessions, view song lyrics and chords based on their instrument, and stay in sync during rehearsals.
 
-> 🔗 **Backend repository:** [jaMoveo_server Repository](https://github.com/TalorLangnas/jaMoveo_server)
+> 🔗 **Backend repository:** [jaMoveo_server](https://github.com/TalorLangnas/jaMoveo_server)
 
 ---
 
